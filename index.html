@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JOKER MEDIA ENGINE</title>
-    <!-- Tailwind CSS v4 -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
@@ -15,7 +14,6 @@
 </head>
 <body class="bg-[#060609] text-gray-100 font-sans pb-16 selection:bg-purple-600 selection:text-white">
 
-    <!-- HEADER BAR -->
     <header class="border-b border-purple-950/70 bg-[#020204]/90 sticky top-0 z-50 shadow-lg backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center space-x-3">
@@ -31,13 +29,10 @@
         </div>
     </header>
 
-    <!-- DASHBOARD GRID VIEW -->
     <main class="max-w-7xl mx-auto px-4 mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- LEFT COLUMN: SIDEBAR -->
         <section class="col-span-1 lg:col-span-4 space-y-5">
             
-            <!-- API CONFIGURATION BOX -->
             <div class="bg-[#0b0b10] border border-purple-950/80 rounded-xl p-5 shadow-xl space-y-4">
                 <div class="border-b border-purple-900/30 pb-2">
                     <span class="text-xs font-bold text-emerald-400 font-mono flex items-center space-x-1.5">🔑 API Settings (Gemini & Groq)</span>
@@ -58,7 +53,6 @@
                 </div>
             </div>
 
-            <!-- ACTIVE TOOL SELECTOR -->
             <div class="bg-[#0b0b10] border border-purple-950/80 rounded-xl p-5 shadow-xl space-y-2">
                 <h2 class="text-xs font-bold text-purple-400 font-mono uppercase tracking-wider border-b border-purple-900/30 pb-2 mb-2">Select Active Tool</h2>
                 
@@ -66,7 +60,7 @@
                     <div class="flex items-center space-x-2.5"><span class="text-base">🌐</span><div><span class="text-xs font-extrabold block">1. Myanmar Translator</span><span class="text-[9px] text-gray-500">တိုက်ရိုက် နှင့် နက်ရေတာ စတိုင်</span></div></div>
                 </button>
                 <button onclick="switchTool('tts')" id="btn-tts" class="w-full flex items-center justify-between p-2.5 rounded-xl border border-gray-900/80 text-left text-gray-400 hover:text-white transition-all">
-                    <div class="flex items-center space-x-2.5"><span class="text-base">🔊</span><div><span class="text-xs font-extrabold block">2. Speech Maker (TTS Player)</span><span class="text-[9px] text-gray-500">မြန်မာစာဖတ်ပြစနစ်</span></div></div>
+                    <div class="flex items-center space-x-2.5"><span class="text-base">🔊</span><div><span class="text-xs font-extrabold block">2. Speech Maker (TTS Player)</span><span class="text-[9px] text-gray-500">မြန်မာစာဖတ်ပြစနစ် (သီဟ/နီလာ)</span></div></div>
                 </button>
                 <button onclick="switchTool('transcript')" id="btn-transcript" class="w-full flex items-center justify-between p-2.5 rounded-xl border border-gray-900/80 text-left text-gray-400 hover:text-white transition-all">
                     <div class="flex items-center space-x-2.5"><span class="text-base">📝</span><div><span class="text-xs font-extrabold block">3. Transcript Generator</span><span class="text-[9px] text-gray-500">အသံမှ စာသားပြောင်းရန်</span></div></div>
@@ -76,7 +70,6 @@
                 </button>
             </div>
 
-            <!-- SHARED MEDIA UPLOADER -->
             <div class="bg-[#0b0b10] border border-purple-950/80 rounded-xl p-5 shadow-xl space-y-4">
                 <h2 class="text-xs font-bold text-purple-400 font-mono uppercase tracking-wider border-b border-purple-900/30 pb-2 mb-2">Media Hub</h2>
                 <div onclick="document.getElementById('fileInput').click()" class="border border-dashed border-purple-900/30 hover:border-purple-500 bg-[#040406]/60 rounded-xl p-6 text-center cursor-pointer transition-all">
@@ -91,59 +84,60 @@
             </div>
         </section>
 
-        <!-- RIGHT COLUMN: WORKSPACE -->
         <section class="col-span-1 lg:col-span-8 space-y-5">
             <div id="statusBanner" class="hidden text-xs px-4 py-3 rounded-xl animate-fadeIn"></div>
             <div id="masterLoader" class="hidden bg-purple-950/20 border border-purple-900/30 rounded-xl p-4 flex items-center space-x-3 text-xs text-purple-300">
                 <span class="inline-block animate-spin mr-2">🔄</span><span id="loaderMsg" class="font-bold text-emerald-400 font-mono"></span>
             </div>
 
-            <div class="bg-[#0b0b10] border border-purple-950/80 rounded-2xl p-6 shadow-xl min-h-[400px] flex flex-col justify-between">
+            <div class="bg-[#0b0b10] border border-purple-950/80 rounded-2xl p-6 shadow-xl min-h-[420px] flex flex-col justify-between">
                 
-                <!-- TOOL 1: TRANSLATOR (PRIMARY) -->
                 <div id="tool-translate" class="space-y-4 flex-1 flex flex-col justify-between animate-fadeIn">
                     <div class="flex justify-between items-center border-b border-purple-900/20 pb-3">
-                        <h3 class="text-sm font-bold text-emerald-400 font-mono">1. Gemini Translation Engine (AI Studio)</h3>
+                        <h3 class="text-sm font-bold text-emerald-400 font-mono">1. Gemini Translation Engine</h3>
                         <div class="flex items-center space-x-2">
-                            <select id="translationStyle" class="bg-[#040406] border border-purple-900/40 text-[11px] text-purple-300 rounded-lg p-1.5"><option value="direct">တိုက်ရိုက်ဘာသာပြန် (Direct)</option><option value="narrator">နက်ရေတာစတိုင် (Narrator)</option></select>
-                            <button onclick="handleTranslationGenerator()" class="bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all">မြန်မာပြန်မယ်</button>
+                            <select id="translationStyle" class="bg-[#040406] border border-purple-900/40 text-[11px] text-purple-300 rounded-lg p-1.5">
+                                <option value="direct">တိုက်ရိုက်ဘာသာပြန် (Direct)</option>
+                                <option value="narrator">နက်ရေတာစတိုင် (Narrator)</option>
+                            </select>
+                            <button onclick="handleTranslationGenerator()" class="bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all">မြန်မာပြန်မည်</button>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 py-2">
                         <textarea id="translateInput" placeholder="ဘာသာပြန်ရန် မူရင်းစာသားများကို ဤနေရာတွင် ထည့်ပါ..." class="w-full bg-[#040406] border border-purple-950/30 rounded-xl p-3 text-xs text-gray-300 h-64 focus:outline-none resize-none"></textarea>
                         
-                        <!-- AI STUDIO VOICE OVER TEXT BOX -->
                         <div class="flex flex-col space-y-2">
-                            <span class="text-[10px] text-purple-400 font-bold font-mono">📋 Copy Box (AI Studio အသံသွင်းရန်အတွက် အဆင်သင့်စာသား)</span>
+                            <span class="text-[10px] text-purple-400 font-bold font-mono">📋 Copy Box (AI Studio အသံသွင်းရန်အတွက် စာသား)</span>
                             <textarea id="translateOutput" readonly placeholder="မြန်မာပြန်ဆိုချက်များ ဤနေရာတွင် ထွက်လာပါမည်..." class="w-full flex-1 bg-[#040406] border border-purple-950/30 rounded-xl p-3 text-xs text-emerald-400 focus:outline-none resize-none"></textarea>
                             <button onclick="copyToClipboard('translateOutput')" class="bg-purple-900 hover:bg-purple-800 text-white text-xs py-1.5 rounded-lg transition-all font-bold">စာသားများကို Copy ကူးမည်</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- TOOL 2: TTS PLAYER -->
                 <div id="tool-tts" class="hidden space-y-4 flex-1 flex flex-col justify-between animate-fadeIn">
                     <div class="flex justify-between items-center border-b border-purple-900/20 pb-3">
-                        <h3 class="text-sm font-bold text-purple-400 font-mono">2. Text to Speech (ဖတ်ပြစနစ်)</h3>
-                        <div class="flex space-x-2">
+                        <h3 class="text-sm font-bold text-purple-400 font-mono">2. Text to Speech (မြန်မာစာဖတ်ပြစနစ်)</h3>
+                        <div class="flex items-center space-x-2">
+                            <select id="ttsVoiceSelect" class="bg-[#040406] border border-purple-900/40 text-[11px] text-purple-300 rounded-lg p-1.5">
+                                <option value="my-MM">မြန်မာအသံ (စံနှုန်း)</option>
+                                <option value="en-US">English Voice</option>
+                            </select>
                             <button id="stopTtsBtn" onclick="stopFreeTTS()" class="hidden bg-red-950 text-red-400 border border-red-900/50 text-xs font-bold px-3 py-2 rounded-lg transition-all">ရပ်မည်</button>
                             <button onclick="handleFreeTTS()" class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all">အသံထွက်ဖတ်ပြပါ</button>
                         </div>
                     </div>
-                    <textarea id="ttsInput" placeholder="ဖတ်ပြစေလိုသော မြန်မာစာသားများကို ထည့်ပါ..." class="w-full bg-[#040406] border border-purple-950/40 rounded-xl p-3 text-xs text-gray-200 h-48 focus:outline-none resize-none"></textarea>
+                    <textarea id="ttsInput" placeholder="ဖတ်ပြစေလိုသော မြန်မာစာသားများကို ထည့်ပါ..." class="w-full bg-[#040406] border border-purple-950/40 rounded-xl p-3 text-xs text-gray-200 h-64 focus:outline-none resize-none"></textarea>
                 </div>
 
-                <!-- TOOL 3: TRANSCRIPT -->
                 <div id="tool-transcript" class="hidden space-y-4 flex-1 flex flex-col justify-between animate-fadeIn">
                     <div class="flex justify-between items-center border-b border-purple-900/20 pb-3">
-                        <h3 class="text-sm font-bold text-purple-400 font-mono">3. Speech-to-Text Transcript</h3>
+                        <h3 class="text-sm font-bold text-purple-400 font-mono">3. Speech-to-Text Transcript Generator</h3>
                         <button onclick="handleTranscriptGenerator()" class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all">Transcript စာသားထုတ်မည်</button>
                     </div>
                     <textarea id="transcriptOutput" readonly placeholder="ရလဒ်များကို ဤနေရာတွင် ထုတ်ပြပေးမည်ဖြစ်သည်..." class="w-full bg-[#040406] border border-purple-950/60 rounded-xl p-4 text-xs font-mono text-gray-300 h-64 focus:outline-none resize-none"></textarea>
                     <button onclick="sendTranscriptToTranslator()" class="w-full bg-emerald-950 hover:bg-emerald-900 text-emerald-400 border border-emerald-900/60 text-xs font-bold py-2 rounded-lg">➔ ဤစာသားများကို Translator (ဘာသာပြန်စနစ်) သို့ ပို့မည်</button>
                 </div>
 
-                <!-- TOOL 4: SRT MAKER -->
                 <div id="tool-srt" class="hidden space-y-4 flex-1 flex flex-col justify-between animate-fadeIn">
                     <div class="flex justify-between items-center border-b border-purple-900/20 pb-3">
                         <h3 class="text-sm font-bold text-purple-400 font-mono">4. SRT Subtitles Maker</h3>
@@ -158,10 +152,10 @@
         </section>
     </main>
 
-    <!-- CORE LOGIC WITH FIXED LAUNCH ROUTINES -->
     <script>
         let uploadedFile = null;
 
+        // Load Saved Keys
         document.getElementById('geminiKeyInput').value = localStorage.getItem('joker_gemini_key') || '';
         document.getElementById('groqKeyInput').value = localStorage.getItem('joker_groq_key') || '';
 
@@ -194,6 +188,7 @@
         function switchTool(tool) {
             ['translate', 'tts', 'transcript', 'srt'].forEach(t => document.getElementById(`tool-${t}`).classList.add('hidden'));
             document.getElementById(`tool-${tool}`).classList.remove('hidden');
+            
             ['translate', 'tts', 'transcript', 'srt'].forEach(t => {
                 document.getElementById(`btn-${t}`).className = "w-full flex items-center justify-between p-2.5 rounded-xl border border-gray-900/80 text-left text-gray-400 hover:text-white transition-all";
             });
@@ -215,10 +210,10 @@
             el.controls = true;
             el.className = "w-full max-h-32 bg-black rounded mt-2";
             container.appendChild(el);
-            showStatus('ဖိုင်ကို Engine ထဲသို့ ချိတ်ဆက်ပြီးပါပြီ။');
+            showStatus('ဖိုင်ကို Media Hub သို့ ချိတ်ဆက်ပြီးပါပြီ။');
         }
 
-        // Fixed Gemini Core Request
+        // Gemini Translation API Method Fixed
         async function handleTranslationGenerator() {
             const text = document.getElementById('translateInput').value.trim();
             const key = localStorage.getItem('joker_gemini_key');
@@ -226,30 +221,31 @@
 
             if(!text || !key) return showStatus('ဘာသာပြန်ရန် စာသား သို့မဟုတ် Gemini API Key လိုအပ်ပါသည်!', 'error');
 
-            showLoader(true, 'Gemini Ultra Flash ဖြင့် အမှားအယွင်းမရှိ မြန်မာပြန်နေပါသည်...');
+            showLoader(true, 'Gemini Engine ဖြင့် အမှားအယွင်းမရှိ မြန်မာပြန်နေပါသည်...');
             try {
-                // Correct model request routing for 2026 standard stability
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: `You are a professional Translator. Style: ${style}. Translate this text into natural Myanmar language:\n${text}` }] }] })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: `You are an expert translator. Style: ${style}. Carefully translate the following foreign text into clear, fluent, natural Myanmar language. Ensure accuracy without any meta description or extra chat commentary:\n\n${text}` }] }] })
                 });
                 const data = await response.json();
                 if(data.candidates && data.candidates[0].content.parts[0].text) {
                     document.getElementById('translateOutput').value = data.candidates[0].content.parts[0].text;
                     showStatus('ဘာသာပြန်ဆိုမှု အောင်မြင်ပါသည်။');
                 } else {
-                    throw new Error('API Response translation text structural layout missing.');
+                    throw new Error('API တုံ့ပြန်မှု တည်ဆောက်ပုံ လွဲမှားနေသည်။ Key သေချာမှု ရှိမရှိ စစ်ဆေးပါ။');
                 }
             } catch (err) { showStatus('ဘာသာပြန်စနစ် ချို့ယွင်းချက်: ' + err.message, 'error'); }
             finally { showLoader(false); }
         }
 
+        // Groq Whisper Transcript Core Fixed
         async function handleTranscriptGenerator() {
             const key = localStorage.getItem('joker_groq_key');
-            if(!key || !uploadedFile) return showStatus('Groq API Key သို့မဟုတ် Media ဖိုင် လိုအပ်ပါသည်!', 'error');
+            if(!key) return showStatus('Groq API Key ထည့်သွင်းရန် လိုအပ်ပါသည်!', 'error');
+            if(!uploadedFile) return showStatus('Media Hub တွင် ဗီဒီယို သို့မဟုတ် အသံဖိုင်အရင်တင်ပေးပါ!', 'error');
 
-            showLoader(true, 'Groq Whisper V3 ဖြင့် အသံမှ စာသားပြောင်းလဲနေသည်...');
+            showLoader(true, 'Groq Whisper V3 စနစ်ဖြင့် အသံမှ စာသားပြောင်းလဲနေသည်...');
             const fd = new FormData();
             fd.append('file', uploadedFile);
             fd.append('model', 'whisper-large-v3');
@@ -261,15 +257,21 @@
                     body: fd
                 });
                 const data = await response.json();
-                document.getElementById('transcriptOutput').value = data.text || JSON.stringify(data);
-                showStatus('Transcript ထုတ်ယူမှု အောင်မြင်ပါသည်။');
-            } catch (err) { showStatus(err.message, 'error'); }
+                if(data.text) {
+                    document.getElementById('transcriptOutput').value = data.text;
+                    showStatus('Transcript ထုတ်ယူမှု အောင်မြင်ပါသည်။');
+                } else {
+                    throw new Error(data.error ? data.error.message : 'စာသားပြောင်းလဲ၍မရပါ။');
+                }
+            } catch (err) { showStatus('Transcript စနစ်ချို့ယွင်းချက်: ' + err.message, 'error'); }
             finally { showLoader(false); }
         }
 
+        // Groq Whisper SRT Subtitle Core Fixed
         async function handleSRTGenerator() {
             const key = localStorage.getItem('joker_groq_key');
-            if(!key || !uploadedFile) return showStatus('Groq API Key သို့မဟုတ် Media ဖိုင် လိုအပ်ပါသည်!', 'error');
+            if(!key) return showStatus('Groq API Key ထည့်သွင်းရန် လိုအပ်ပါသည်!', 'error');
+            if(!uploadedFile) return showStatus('Media Hub တွင် ဗီဒီယို သို့မဟုတ် အသံဖိုင်အရင်တင်ပေးပါ!', 'error');
 
             showLoader(true, 'Groq Whisper ဖြင့် အချိန်ကိုက် Subtitle SRT ဆွဲထုတ်နေသည်...');
             const fd = new FormData();
@@ -293,19 +295,20 @@
                     document.getElementById('srtOutput').value = srt;
                     showStatus('SRT ထုတ်လုပ်မှု အောင်မြင်သည်။');
                 } else { throw new Error('Segments data missing.'); }
-            } catch (err) { showStatus(err.message, 'error'); }
+            } catch (err) { showStatus('SRT တည်ဆောက်မှု ချို့ယွင်းချက်: ' + err.message, 'error'); }
             finally { showLoader(false); }
         }
 
-        // Web Speech Player Fallback Route (Safe)
+        // Web Speech Player Core Function
         function handleFreeTTS() {
             const text = document.getElementById('ttsInput').value.trim();
-            if(!text) return showStatus('စာသားထည့်ပါ', 'error');
-            if(!window.speechSynthesis) return showStatus('Browser Not Supported', 'error');
+            const selectedLang = document.getElementById('ttsVoiceSelect').value;
+            if(!text) return showStatus('ဖတ်ပြရန် မြန်မာစာသားထည့်ပါ', 'error');
+            if(!window.speechSynthesis) return showStatus('ဤဖုန်း/Browser တွင် အသံထွက်စနစ် အလုပ်မလုပ်ပါ', 'error');
 
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'my-MM';
+            utterance.lang = selectedLang;
             
             utterance.onend = () => { document.getElementById('stopTtsBtn').classList.add('hidden'); };
             document.getElementById('stopTtsBtn').classList.remove('hidden');
@@ -326,7 +329,7 @@
             const el = document.getElementById(id);
             el.select();
             document.execCommand('copy');
-            showStatus('စာသားများကို Clipboard ထဲသို့ Copy ကူးယူပြီးပါပြီ။ AI Studio တွင် တိုက်ရိုက်သုံးနိုင်ပါသည်။');
+            showStatus('စာသားများကို သိမ်းဆည်းပြီးပါပြီ။ AI Studio တွင် အသံသွင်းရန် အဆင်သင့် သုံးနိုင်ပါသည်။');
         }
 
         function downloadSRT(targetId, filename) {
