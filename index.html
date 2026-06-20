@@ -81,7 +81,7 @@
         </div>
 
         <p class="text-[10px] text-gray-400 leading-relaxed">
-          * <b class="text-purple-400 font-bold">သီဟ</b> နှင့် <b class="text-purple-400 font-bold">နီလာ</b> ဒေသတွင်း အမြန်အသံစနစ်များကို Key မလိုဘဲ အခမဲ့ စမ်းသပ်နိုင်ပါသည်။ ကိုယ်ပိုင် Gemini Key ရှိပါကလည်း ထည့်သွင်းအသုံးပြုနိုင်ပါသည်။
+          * <b class="text-purple-400 font-bold">သီဟ</b> နှင့် <b class="text-purple-400 font-bold">နီလာ</b> အသံများကို Key လုံးဝထည့်စရာမလိုဘဲ အခမဲ့ အသုံးပြုနိုင်ပါသည်။ ကိုယ်ပိုင် Gemini Key ရှိပါကလည်း ထည့်သွင်းအသုံးပြုနိုင်ပါသည်။
         </p>
 
         <div class="space-y-3">
@@ -137,8 +137,8 @@
             <div class="flex items-center space-x-2.5">
               <span class="text-lg">🔊</span>
               <div>
-                <span class="text-xs font-extrabold block">1. Speech Maker (TTS)</span>
-                <span class="text-[9px] text-gray-500">ဒေသတွင်း အမြန်စနစ် နှင့် သီဟ/နီလာ</span>
+                <span class="text-xs font-extrabold block">1. Speech Maker (သီဟ/နီလာ)</span>
+                <span class="text-[9px] text-gray-500">မြန်မာအသံ - သီဟ နှင့် နီလာ သီးသန့်</span>
               </div>
             </div>
             <span id="dot-tts" class="text-purple-400">●</span>
@@ -264,23 +264,15 @@
         <div id="tool-container-tts" class="space-y-4 flex-1 flex flex-col justify-between">
           <div class="space-y-1 border-b border-purple-900/20 pb-3">
             <div class="flex justify-between items-center">
-              <h3 class="text-sm font-bold text-purple-400 font-mono">1. Speech Maker (အခမဲ့ အသံထုတ်လုပ်ရေးစနစ်)</h3>
-              <div class="flex space-x-2">
-                <button
-                  onclick="handleLocalTTS()"
-                  class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-2 rounded-lg transition-all"
-                >
-                  ⚡ စက်တွင်းအသံဖြင့် ဖတ်မယ် (Instant)
-                </button>
-                <button
-                  onclick="handleTTSGenerator()"
-                  class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-3 py-2 rounded-lg transition-all"
-                >
-                  ☁️ Cloud ဖြင့် အသံထုတ်မယ်
-                </button>
-              </div>
+              <h3 class="text-sm font-bold text-purple-400 font-mono">1. Speech Maker (သီဟ 🇲🇲 & နီလာ 🇲🇲 သီးသန့် အခမဲ့စနစ်)</h3>
+              <button
+                onclick="handleTTSGenerator()"
+                class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-5 py-2 rounded-lg transition-all shadow-md"
+              >
+                🔊 အသံထုတ်မယ် (Cloud Premium)
+              </button>
             </div>
-            <p class="text-[10px] text-gray-500 font-bold">စက်တွင်းအမြန်ဖတ်စနစ်သည် စက္ကန့်ပိုင်းအတွင်း ချက်ချင်းအသံထွက်ပေးပြီး Cloud စနစ်သည် ပိုမိုသဘာဝကျသော သီဟ/နီလာ အသံများကို ထုတ်ပေးပါသည်။</p>
+            <p class="text-[10px] text-gray-500 font-bold">ပြင်ပ Key မလိုဘဲ သီဟ နှင့် နီလာ အဆင့်မြင့်မြန်မာအသံများကို ရာနှုန်းပြည့် အခမဲ့ ထုတ်လုပ်နိုင်ပါသည်။</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-12 gap-5 flex-1 py-2">
@@ -296,36 +288,16 @@
             <!-- Settings selectors -->
             <div class="md:col-span-5 bg-[#040406] p-4 rounded-xl border border-purple-950/40 space-y-4 flex flex-col justify-between">
               
-              <!-- Voice Mode Selector Tab -->
-              <div class="space-y-2">
-                <span class="block text-[9px] font-mono text-gray-400 uppercase">အသံထုတ်ယူမည့် စနစ်ရွေးရန်</span>
-                <div class="grid grid-cols-2 gap-1.5 p-1 bg-[#0b0b10] rounded-lg border border-purple-950/60">
-                  <button 
-                    id="tts-mode-local" 
-                    onclick="setTtsEngine('local')" 
-                    class="text-[10px] py-1 rounded font-bold text-center transition-all bg-emerald-950/50 border border-emerald-800 text-emerald-400"
-                  >
-                    ⚡ Local Instant (အခမဲ့)
-                  </button>
-                  <button 
-                    id="tts-mode-cloud" 
-                    onclick="setTtsEngine('cloud')" 
-                    class="text-[10px] py-1 rounded font-bold text-center transition-all text-gray-400 hover:text-white"
-                  >
-                    ☁️ Cloud Premium
-                  </button>
-                </div>
-              </div>
-
               <!-- Voice Select with Description -->
               <div>
                 <span class="block text-[9px] font-mono text-gray-400 uppercase mb-2">Voice Selector (အသံရွေးချယ်ရန်)</span>
                 <select
                   id="ttsVoiceSelect"
                   onchange="updateVoiceDescription()"
-                  class="w-full bg-[#0b0b10] border border-purple-900/60 rounded-lg p-2 text-xs text-purple-300 focus:outline-none"
+                  class="w-full bg-[#0b0b10] border border-purple-900/60 rounded-lg p-2 text-xs text-purple-300 focus:outline-none font-bold"
                 >
-                  <!-- Dynamically populated options -->
+                  <option value="thiha" selected>သီဟ (Thiha) 🇲🇲 [အမျိုးသားသံ]</option>
+                  <option value="nila">နီလာ (Nila) 🇲🇲 [အမျိုးသမီးသံ]</option>
                 </select>
                 <p id="ttsVoiceDesc" class="text-[9.5px] text-gray-500 mt-2 italic"></p>
               </div>
@@ -372,13 +344,13 @@
           <div id="ttsOutputWrapper" class="p-4 bg-emerald-950/20 border border-emerald-900/40 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4 mt-2 hidden">
             <div class="flex items-center space-x-2">
               <span class="text-lg">🎉</span>
-              <span class="text-xs text-emerald-400 font-bold">အသံဖိုင် စုပေါင်းဖန်တီးမှု အောင်မြင်ပါသည်!</span>
+              <span class="text-xs text-emerald-400 font-bold">မြန်မာအသံဖိုင် ထုတ်လုပ်မှု အောင်မြင်ပါသည်!</span>
             </div>
             <audio id="ttsAudioPlayer" src="" controls class="w-full md:max-w-xs h-7 accent-emerald-500"></audio>
             <a
               id="ttsDownloadLink"
               href="#"
-              download="voice_output.wav"
+              download="myanmar_voice.wav"
               class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-lg whitespace-nowrap transition-all shadow-md"
             >
               📥 Download WAV
@@ -393,7 +365,7 @@
               <h3 class="text-sm font-bold text-emerald-400 font-mono">2. Gemini Multi-Language Translator</h3>
               <button
                 onclick="handleTranslationGenerator()"
-                class="bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold px-6 py-2 rounded-lg transition-all"
+                class="bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold px-6 py-2 rounded-lg transition-all shadow-md"
               >
                 ဘာသာပြန်မယ်
               </button>
@@ -492,7 +464,7 @@
               <h3 class="text-sm font-bold text-purple-400 font-mono">3. Speech-to-Text Transcript Generator</h3>
               <button
                 onclick="handleTranscriptGenerator()"
-                class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all"
+                class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-md"
               >
                 Transcript ထုတ်မယ်
               </button>
@@ -536,7 +508,7 @@
               <h3 class="text-sm font-bold text-purple-400 font-mono">4. SRT Subtitles Generator</h3>
               <button
                 onclick="handleSRTGenerator()"
-                class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all"
+                class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-md"
               >
                 srt ထုတ်မယ်
               </button>
@@ -594,104 +566,14 @@
     let translationOutputVal = '';
     let srtOutputVal = '';
 
-    // Active TTS Engine Tab State
-    let activeTtsEngine = 'local'; // 'local' or 'cloud'
-
-    // Local Speech voices
-    let localVoices = [];
-
-    // Voice Definition Array
-    const geminiVoices = [
-      { id: 'thiha', name: 'သီဟ (Thiha) 🇲🇲 [ကျား]', gender: 'Male', desc: 'မြန်မာအမျိုးသားသံ - သဘာဝကျပြီး တည်ငြိမ်သောလေသံ (Fenrir Base)' },
-      { id: 'nila', name: 'နီလာ (Nila) 🇲🇲 [မ]', gender: 'Female', desc: 'မြန်မာအမျိုးသမီးသံ - ယဉ်ကျေးပျော့ပျောင်းသောလေသံ (Kore Base)' },
-      { id: 'Puck', name: 'Puck 🇬🇧', gender: 'Male', desc: 'အင်္ဂလိပ်အမျိုးသား - သွက်လက်ပြီး အားတက်သရောရှိသည်' },
-      { id: 'Charon', name: 'Charon 🇬🇧', gender: 'Male', desc: 'အင်္ဂလိပ်အမျိုးသား - လေးနက်ပြီး တည်ငြိမ်သောလေသံ' },
-      { id: 'Kore', name: 'Kore 🇬🇧', gender: 'Female', desc: 'အင်္ဂလိပ်အမျိုးသမီး - ကြည်လင်ပြတ်သားပြီး ယဉ်ကျေးသည်' },
-      { id: 'Fenrir', name: 'Fenrir 🇬🇧', gender: 'Male', desc: 'အင်္ဂလိပ်အမျိုးသား - နက်ရှိုင်းပြီး အသံဩဇာရှိသည်' },
-      { id: 'Leda', name: 'Leda 🇬🇧', gender: 'Female', desc: 'အင်္ဂလိပ်အမျိုးသမီး - နူးညံ့ပြီး ငြိမ်းအေးသောလေယူလေသိမ်း' },
-      { id: 'Orus', name: 'Orus 🇺🇸', gender: 'Male', desc: 'အမေရိကန်အမျိုးသား - ပရော်ဖက်ရှင်နယ်ဆန်ပြီး ရှင်းလင်းသည်' },
-      { id: 'Aoede', name: 'Aoede 🇬🇧', gender: 'Female', desc: 'အင်္ဂလိပ်အမျိုးသမီး - တက်ကြွပြီး ဆွဲဆောင်မှုရှိသည်' },
-      { id: 'Callirrhoe', name: 'Callirrhoe 🇬🇧', gender: 'Female', desc: 'အင်္ဂလိပ်အမျိုးသမီး - သဘာဝကျကျ အေးဆေးပြောဆိုပုံစံ' },
-      { id: 'Autonoe', name: 'Autonoe 🇬🇧', gender: 'Female', desc: 'အင်္ဂလိပ်အမျိုးသမီး - ပညာတတ်ဆန်ပြီး တည်ငြိမ်သည်' }
-    ];
-
     // Initialization
     window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('inputGeminiKey').value = geminiKey;
       document.getElementById('inputGroqKey').value = groqKey;
 
-      initTtsVoices();
-      checkGeminiKeyStatus(); // Run check for key constraints
-
-      // Setup window speech synthesis voices trigger
-      if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
-        speechSynthesis.onvoiceschanged = initTtsVoices;
-      }
-    });
-
-    // Populate voice dropdown based on selected Engine Mode
-    function initTtsVoices() {
-      const voiceSelect = document.getElementById('ttsVoiceSelect');
-      voiceSelect.innerHTML = "";
-
-      if (activeTtsEngine === 'local') {
-        // Load System/Local Voices
-        if (typeof speechSynthesis !== 'undefined') {
-          localVoices = speechSynthesis.getVoices();
-          
-          // Filter out for Burmese, English or relevant ones
-          let burmeseLocal = localVoices.filter(v => v.lang.includes('my') || v.lang.includes('MM'));
-          let englishLocal = localVoices.filter(v => v.lang.includes('en') || v.lang.includes('US') || v.lang.includes('GB'));
-          let otherLocal = localVoices.filter(v => !v.lang.includes('my') && !v.lang.includes('en'));
-
-          let combinedList = [...burmeseLocal, ...englishLocal, ...otherLocal];
-          
-          if (combinedList.length === 0) {
-            const option = document.createElement('option');
-            option.value = "default";
-            option.innerText = "Default System Voice (ပုံသေ စနစ်အသံ)";
-            voiceSelect.appendChild(option);
-          } else {
-            combinedList.forEach((voice, index) => {
-              const option = document.createElement('option');
-              option.value = index;
-              option.innerText = `${voice.name} (${voice.lang})`;
-              voiceSelect.appendChild(option);
-            });
-          }
-        } else {
-          const option = document.createElement('option');
-          option.value = "none";
-          option.innerText = "ယခု Browser တွင် Local TTS မပံ့ပိုးပါ";
-          voiceSelect.appendChild(option);
-        }
-      } else {
-        // Cloud Premium Mode
-        geminiVoices.forEach(voice => {
-          const option = document.createElement('option');
-          option.value = voice.id;
-          option.innerText = voice.name;
-          voiceSelect.appendChild(option);
-        });
-      }
       updateVoiceDescription();
-    }
-
-    // Toggle Voice System Engine Mode
-    function setTtsEngine(mode) {
-      activeTtsEngine = mode;
-      const localBtn = document.getElementById('tts-mode-local');
-      const cloudBtn = document.getElementById('tts-mode-cloud');
-
-      if (mode === 'local') {
-        localBtn.className = "text-[10px] py-1 rounded font-bold text-center transition-all bg-emerald-950/50 border border-emerald-800 text-emerald-400";
-        cloudBtn.className = "text-[10px] py-1 rounded font-bold text-center transition-all text-gray-400 hover:text-white";
-      } else {
-        cloudBtn.className = "text-[10px] py-1 rounded font-bold text-center transition-all bg-purple-950/50 border border-purple-800 text-purple-400";
-        localBtn.className = "text-[10px] py-1 rounded font-bold text-center transition-all text-gray-400 hover:text-white";
-      }
-      initTtsVoices();
-    }
+      checkGeminiKeyStatus(); // Run check for key constraints
+    });
 
     // Clean API Formatting Helpers
     function sanitizeKeyString(str) {
@@ -763,7 +645,7 @@
           modelSelect.appendChild(opt);
         });
 
-        statusEl.innerText = `တွေ့ရှိသည် [${supportedModels.length} ည] ✓`;
+        statusEl.innerText = `တွေ့ရှိသည် [${supportedModels.length} ခု] ✓`;
         statusEl.className = "text-[9px] text-emerald-400 font-mono italic";
 
         warningEl.innerHTML = `✓ <b>ကိုယ်ပိုင် API Key အတည်ပြုပြီးပါပြီ:</b> သင့် Key နှင့် ကိုက်ညီသော Models ပေါင်း <b class='text-emerald-400'>${supportedModels.length} ခု</b> ကို အောင်မြင်စွာ အလိုအလျောက် ရှာဖွေစစ်ဆေးတွေ့ရှိပြီး စာရင်းထဲသို့ ထည့်သွင်းပေးလိုက်ပါပြီ။`;
@@ -950,7 +832,7 @@
       }
     }
 
-    // Larger chunk sizes (500) to drastically reduce the number of API calls and double output speed!
+    // Split text into 500 length chunks for double API calling speed
     function splitTextIntoChunks(text, maxLength = 500) {
       const regex = /([^။၊\n.!?]+[။၊\n.!?]*)/g;
       const sentences = text.match(regex) || [text];
@@ -982,22 +864,13 @@
     }
 
     function updateVoiceDescription() {
-      const select = document.getElementById('ttsVoiceSelect');
-      const voiceId = select.value;
+      const voiceId = document.getElementById('ttsVoiceSelect').value;
       const descEl = document.getElementById('ttsVoiceDesc');
 
-      if (activeTtsEngine === 'local') {
-        if (typeof speechSynthesis !== 'undefined' && localVoices[voiceId]) {
-          const selected = localVoices[voiceId];
-          descEl.innerText = `Local Voice: ${selected.name} (${selected.lang}) - စောင့်ဆိုင်းရန်မလိုဘဲ ချက်ချင်းအသံထွက်ပေးပါမည်။`;
-        } else {
-          descEl.innerText = "Local System Voice - 0s latency စက်တွင်းအမြန်ဖတ်စနစ်။";
-        }
+      if (voiceId === 'thiha') {
+        descEl.innerText = "သီဟ (Thiha) 🇲🇲 [ကျားသံ] - သဘာဝကျပြီး တည်ငြိမ်ပြတ်သားသော မြန်မာအမျိုးသား အသံစနစ် (Fenrir Dynamic Engine)";
       } else {
-        const voiceObj = geminiVoices.find(v => v.id === voiceId);
-        if (voiceObj) {
-          descEl.innerText = voiceObj.desc;
-        }
+        descEl.innerText = "နီလာ (Nila) 🇲🇲 [မသံ] - ယဉ်ကျေးပျော့ပျောင်းပြီး ချိုသာသော မြန်မာအမျိုးသမီး အသံစနစ် (Kore Dynamic Engine)";
       }
     }
 
@@ -1016,7 +889,6 @@
             return await response.json();
           }
           
-          // Show user-friendly server/limit failures
           if (response.status >= 400 && response.status < 500 && response.status !== 429) {
             const errData = await response.json().catch(() => ({}));
             throw new Error(errData.error?.message || `Client Error ${response.status}`);
@@ -1031,57 +903,7 @@
     }
 
     // =========================================================================
-    // 1-A. LOCAL INSTANT TTS SYSTEM (ZERO WAITING TIME, KEY FREE)
-    // =========================================================================
-    function handleLocalTTS() {
-      hideError();
-      hideSuccess();
-
-      const rawInput = document.getElementById('ttsInput').value.trim();
-      if (!rawInput) {
-        showError('ကျေးဇူးပြု၍ အသံထုတ်လုပ်လိုသော စာသားများကို ရေးသားပေးပါ!');
-        return;
-      }
-
-      if (typeof speechSynthesis === 'undefined') {
-        showError('ဤ Browser/စနစ်သည် Local Speech Synthesis စနစ်ကို မပံ့ပိုးပါ။ Cloud စနစ်ကို သုံးပေးပါ။');
-        return;
-      }
-
-      showLoader('ဒေသတွင်း အမြန်စနစ်ဖြင့် စာသားများကို ဖတ်ပြနေသည်...');
-
-      // Cancel any ongoing speaking
-      speechSynthesis.cancel();
-
-      const utterance = new SpeechSynthesisUtterance(rawInput);
-      
-      const speed = parseFloat(document.getElementById('ttsSpeed').value);
-      const pitch = parseFloat(document.getElementById('ttsPitch').value);
-      
-      utterance.rate = speed;
-      utterance.pitch = pitch;
-
-      // Select voice
-      const selectedIndex = document.getElementById('ttsVoiceSelect').value;
-      if (activeTtsEngine === 'local' && localVoices[selectedIndex]) {
-        utterance.voice = localVoices[selectedIndex];
-      }
-
-      utterance.onend = () => {
-        hideLoader();
-        showSuccess('အသံဖတ်ကြားမှု အောင်မြင်စွာ ပြီးဆုံးပါပြီ။');
-      };
-
-      utterance.onerror = (e) => {
-        hideLoader();
-        showError(`ဒေသတွင်းဖတ်ကြားမှု အမှားရှိပါသည်: ${e.error}`);
-      };
-
-      speechSynthesis.speak(utterance);
-    }
-
-    // =========================================================================
-    // 1-B. CLOUD PREMIUM TTS PIPELINE (OPTIMIZED SPEED & CHUNK MERGE)
+    // EXCLUSIVE BURMESE CLOUD TTS PIPELINE (API FREE & AUTO FALLBACK)
     // =========================================================================
     async function handleTTSGenerator() {
       hideError();
@@ -1094,14 +916,8 @@
         return;
       }
 
-      // If user is currently in local tab mode but clicked Cloud button, let them know we will use Cloud TTS
-      if (activeTtsEngine !== 'cloud') {
-        setTtsEngine('cloud');
-      }
+      showLoader('မြန်မာစာသားများကို ခွဲခြမ်းစိတ်ဖြာပြီး Cloud Speech Maker ဖြင့် ချိတ်ဆက်နေပါသည်...');
 
-      showLoader('စာသားများကို အပိုင်းအလိုက် ခွဲခြမ်းစိတ်ဖြာပြီး အမြန်နှုန်းမြှင့်တင်ရန် ပြင်ဆင်နေပါသည်...');
-
-      // Using optimized 500 characters chunking (saves API calls, twice as fast!)
       const textChunks = splitTextIntoChunks(rawInput, 500);
       const pcmSegments = [];
       const activeKey = getActiveGeminiKey();
@@ -1111,33 +927,23 @@
       const ttsPitch = document.getElementById('ttsPitch').value;
 
       try {
-        let targetVoice = 'Fenrir'; 
-        let stylePrompt = "You are Thiha (သီဟ), a warm and clear Myanmar male voice.";
+        let targetVoice = 'Fenrir'; // Default Fenrir base for Thiha
+        let stylePrompt = "Say cheerfully: Hello!";
         
         if (ttsVoice === 'nila') {
-          targetVoice = 'Kore'; 
-          stylePrompt = "You are Nila (နီလာ), a polite and sweet Myanmar female voice.";
-        } else if (ttsVoice !== 'thiha') {
-          targetVoice = ttsVoice;
-          stylePrompt = `Speak in the voice profile of ${ttsVoice}.`;
+          targetVoice = 'Kore'; // Kore base for Nila
         }
 
         let audioSampleRate = 24000; // Default sample rate
 
         for (let i = 0; i < textChunks.length; i++) {
-          showLoader(`Cloud အသံအပိုင်း (${i + 1}/${textChunks.length}) ကို Gemini Cloud TTS ဖြင့် ပေါင်းစပ်နေသည်...`);
+          showLoader(`Cloud အသံဖိုင်အပိုင်း (${i + 1}/${textChunks.length}) ကို အခမဲ့တည်ဆောက်နေပါသည်...`);
           
           const chunkText = textChunks[i];
-          const formattedPrompt = `${stylePrompt}
-Configuration parameters:
-- Speaking Rate/Speed: Match a speed of exactly ${ttsSpeed}x.
-- Voice Pitch Level: Match a tone pitch level of exactly ${ttsPitch}.
-
-Please read the following text segment aloud clearly:
-${chunkText}`;
+          const speechControlInput = `Make ${targetVoice} sound excited: ${chunkText}`;
 
           const payload = {
-            contents: [{ parts: [{ text: formattedPrompt }] }],
+            contents: [{ parts: [{ text: speechControlInput }] }],
             generationConfig: {
               responseModalities: ["AUDIO"],
               speechConfig: {
@@ -1157,7 +963,7 @@ ${chunkText}`;
           const mimeType = inlinePart?.inlineData?.mimeType || "";
 
           if (!base64Audio) {
-            throw new Error(`အပိုင်း (${i + 1}) တွင် အသံဒေတာ ပြန်လည်ရရှိခြင်းမရှိပါ။ API limitations သို့မဟုတ် parameter အမှားရှိနိုင်ပါသည်။`);
+            throw new Error(`အပိုင်း (${i + 1}) တွင် အသံဒေတာ မရရှိပါ။ API key သို့မဟုတ် network နှောင့်နှေးမှုရှိနိုင်ပါသည်။`);
           }
 
           const rateMatch = mimeType.match(/rate=(\d+)/);
@@ -1176,7 +982,7 @@ ${chunkText}`;
           pcmSegments.push(chunkPcm16);
         }
 
-        showLoader('အသံဖိုင်အပိုင်းအားလုံးကို စုစည်းချိတ်ဆက်နေပါသည်...');
+        showLoader('အသံဖိုင်အပိုင်းအားလုံးကို အောင်မြင်စွာ ပေါင်းစပ်နေပါသည်...');
         const totalSamples = pcmSegments.reduce((acc, curr) => acc + curr.length, 0);
         const mergedPcm = new Int16Array(totalSamples);
         let offset = 0;
@@ -1194,15 +1000,39 @@ ${chunkText}`;
         
         const dlLink = document.getElementById('ttsDownloadLink');
         dlLink.href = finalAudioUrl;
-        dlLink.download = `${ttsVoice}_voice_${ttsSpeed}x.wav`;
+        dlLink.download = `${ttsVoice}_myanmar_voice.wav`;
 
         document.getElementById('ttsOutputWrapper').classList.remove('hidden');
-        showSuccess(`စာလုံးအကန့်အသတ်မရှိ (အပိုင်း ${textChunks.length} ပိုင်းပါဝင်သော) အသံဖိုင်ကို စုစည်းဖန်တီးပြီးပါပြီ။ 🔊`);
+        showSuccess(`မြန်မာအသံဖိုင် (${ttsVoice === 'thiha' ? 'သီဟသံ' : 'နီလာသံ'}) ကို အောင်မြင်စွာ ထုတ်လုပ်ပြီးပါပြီ။ 🔊`);
       } catch (err) {
-        showError(`TTS Error: ${err.message}`);
+        showError(`Cloud Error: ${err.message}. စက်တွင်း (Local Engine) အသံဖြင့် အစားထိုးဖတ်ကြားပေးနေပါသည်။`);
+        handleLocalFallbackTTS(rawInput, ttsVoice, ttsSpeed, ttsPitch);
       } finally {
         hideLoader();
       }
+    }
+
+    // Local Web Speech Fallback System (No Key, 0s Delay)
+    function handleLocalFallbackTTS(text, voiceType, speed, pitch) {
+      if (typeof speechSynthesis === 'undefined') return;
+      speechSynthesis.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = parseFloat(speed);
+      utterance.pitch = parseFloat(pitch);
+
+      // Look up for a system Burmese voice first, otherwise use default local voice
+      const localVoices = speechSynthesis.getVoices();
+      const myanmarVoice = localVoices.find(v => v.lang.includes('my') || v.lang.includes('MM'));
+      if (myanmarVoice) {
+        utterance.voice = myanmarVoice;
+      }
+
+      utterance.onend = () => {
+        showSuccess("စက်တွင်း အရန်အသံစနစ်ဖြင့် အပြည့်အဝ ဖတ်ကြားပြီးစီးပါပြီ။");
+      };
+
+      speechSynthesis.speak(utterance);
     }
 
     function pcmToWav(pcmData, sampleRate) {
@@ -1234,7 +1064,7 @@ ${chunkText}`;
     }
 
     // =========================================================================
-    // 2. MYANMAR TRANSLATOR ENGINE (SPEED-OPTIMIZED FLASH DEFAULT)
+    // 2. MYANMAR TRANSLATOR ENGINE
     // =========================================================================
     async function handleTranslationGenerator() {
       hideError();
@@ -1247,7 +1077,7 @@ ${chunkText}`;
         return;
       }
 
-      showLoader('Gemini Fast Engine ဖြင့် မြန်မာဘာသာသို့ အမြန်ဘာသာပြန်ဆိုနေပါသည်...');
+      showLoader('Gemini Engine ဖြင့် မြန်မာဘာသာသို့ အမြန်ပြန်ဆိုနေပါသည်...');
 
       const selectedModel = document.getElementById('translationModel').value;
       const translationStyle = document.getElementById('translationStyle').value;
@@ -1307,7 +1137,7 @@ ${translationInput}`;
     }
 
     // =========================================================================
-    // 3. TRANSCRIPT GENERATOR (Whisper API with backoff)
+    // 3. TRANSCRIPT GENERATOR
     // =========================================================================
     async function handleTranscriptGenerator() {
       hideError();
@@ -1332,7 +1162,6 @@ ${translationInput}`;
         formData.append('model', 'whisper-large-v3');
         formData.append('response_format', 'json');
 
-        // Fetching with basic retry for Groq
         let response;
         for (let attempt = 0; attempt < 3; attempt++) {
           try {
@@ -1366,7 +1195,7 @@ ${translationInput}`;
     }
 
     // =========================================================================
-    // 4. SRT Programmatic Renderer
+    // 4. SRT SUBTITLES GENERATOR
     // =========================================================================
     function convertVerboseJsonToSrt(data) {
       if (!data || !data.segments || data.segments.length === 0) {
@@ -1454,13 +1283,17 @@ ${translationInput}`;
       }
     }
 
-    // =========================================================================
-    // QUICK FLOW LOGIC (Saves & Transits)
-    // =========================================================================
+    // Quick flows
     function handleSendTranscriptToTranslator() {
       document.getElementById('translationInput').value = transcriptOutputVal;
       switchTab('translate');
       showSuccess('Transcript ကို ဘာသာပြန်စနစ်ထဲသို့ ကူးပြောင်းပေးလိုက်ပါပြီ။');
+    }
+
+    function handleSendTranslationToTTS() {
+      document.getElementById('ttsInput').value = translationOutputVal;
+      switchTab('tts');
+      showSuccess('ဘာသာပြန်စာသားကို TTS အသံထုတ်စနစ်ထဲသို့ ကူးပြောင်းပေးလိုက်ပါပြီ။');
     }
 
     // Standard Downloaders
@@ -1488,30 +1321,21 @@ ${translationInput}`;
       downloadTextFile(srtOutputVal, 'joker_subtitles.srt');
     }
 
-    function handleSendTranslationToTTS() {
-      document.getElementById('ttsInput').value = translationOutputVal;
-      switchTab('tts');
-      showSuccess('ဘာသာပြန်စာသားကို TTS အသံထုတ်စနစ်ထဲသို့ ကူးပြောင်းပေးလိုက်ပါပြီ။');
-    }
-
     // Dynamic UI State Modifiers
     function showLoader(msg) {
       document.getElementById('masterLoaderMsg').innerText = msg;
       document.getElementById('masterLoader').classList.remove('hidden');
     }
 
-    // Universal API/Loading helpers
     function hideLoader() {
       document.getElementById('masterLoader').classList.add('hidden');
     }
 
-    // Notification banners helper
     function showError(msg) {
       document.getElementById('errorText').innerText = msg;
       document.getElementById('errorBanner').classList.remove('hidden');
     }
 
-    // Hide alerts helper
     function hideError() {
       document.getElementById('errorBanner').classList.add('hidden');
     }
