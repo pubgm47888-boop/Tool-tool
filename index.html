@@ -372,6 +372,11 @@
             <p class="text-[10px] text-gray-500 font-bold">ရွေးချယ်ထားသော ပုံစံ (Style) ၊ လေသံ (Mode) နှင့် Gemini Model အလိုက် စာသားများကို ပြန်ဆိုပေးပါမည်။</p>
           </div>
 
+          <!-- Alert / Warning Banner for Key Restrictions -->
+          <div id="modelWarningMessage" class="hidden text-[11px] bg-yellow-950/40 border border-yellow-800/50 text-yellow-300 p-2.5 rounded-lg font-mono">
+            <!-- Dynamically populated warning -->
+          </div>
+
           <!-- Settings Grid bar for Translate -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-[#040406] p-3 rounded-xl border border-purple-900/20">
             <div>
@@ -380,10 +385,10 @@
                 id="translationModel"
                 class="w-full bg-[#0b0b10] border border-purple-900/40 text-[11px] text-purple-300 rounded-lg p-2 focus:outline-none"
               >
-                <option value="gemini-2.5-flash" selected>gemini-2.5-flash (အကြံပြုထားသည် - မြန်ဆန်/မှန်ကန်)</option>
-                <option value="gemini-1.5-flash">gemini-1.5-flash (တည်ငြိမ်ပြီး အသုံးများ)</option>
-                <option value="gemini-1.5-pro">gemini-1.5-pro (အဆင့်မြင့် စာပေဆန်ဆန်)</option>
-                <option value="gemini-2.5-flash-preview-09-2025">gemini-2.5-flash-preview-09-2025 (စမ်းသပ်ဆဲ)</option>
+                <option value="gemini-2.5-flash-preview-09-2025" selected>gemini-2.5-flash-preview-09-2025 (စနစ်သုံးအကြံပြုချက်)</option>
+                <option value="gemini-2.5-flash">gemini-2.5-flash (ကိုယ်ပိုင် Key သီးသန့်)</option>
+                <option value="gemini-1.5-flash">gemini-1.5-flash (ကိုယ်ပိုင် Key သီးသန့်)</option>
+                <option value="gemini-1.5-pro">gemini-1.5-pro (ကိုယ်ပိုင် Key သီးသန့်)</option>
               </select>
             </div>
 
@@ -568,7 +573,7 @@
       { id: 'Charon', name: 'Charon 🇬🇧', gender: 'Male', desc: 'အင်္ဂလိပ်အမျိုးသား - လေးနက်ပြီး တည်ငြိမ်သောလေသံ' },
       { id: 'Kore', name: 'Kore 🇬🇧', gender: 'Female', desc: 'အင်္ဂလိပ်အမျိုးသမီး - ကြည်လင်ပြတ်သားပြီး ယဉ်ကျေးသည်' },
       { id: 'Fenrir', name: 'Fenrir 🇬🇧', gender: 'Male', desc: 'အင်္ဂလိပ်အမျိုးသား - နက်ရှိုင်းပြီး အသံဩဇာရှိသည်' },
-      { id: 'Leda', name: 'Leda 🇬🇧', gender: 'Female', desc: 'အင်္ဂလိပ်အမျိုးသမီး - နူးညံ့ပြီး ငြိမ်းအေးသောလေယူလေသိမ်း' },
+      { id: 'Leda', name: 'Leda 🇬🇧', gender: 'Female', desc: 'အင်္ဂလိပ်အမျိုးသမီး - นူးညံ့ပြီး ငြိမ်းအေးသောလေယူလေသိမ်း' },
       { id: 'Orus', name: 'Orus 🇺🇸', gender: 'Male', desc: 'အမေရိကန်အမျိုးသား - ပရော်ဖက်ရှင်နယ်ဆန်ပြီး ရှင်းလင်းသည်' },
       { id: 'Aoede', name: 'Aoede 🇬🇧', gender: 'Female', desc: 'အင်္ဂလိပ်အမျိုးသမီး - တက်ကြွပြီး ဆွဲဆောင်မှုရှိသည်' },
       { id: 'Callirrhoe', name: 'Callirrhoe 🇬🇧', gender: 'Female', desc: 'အင်္ဂလိပ်အမျိုးသမီး - သဘာဝကျကျ အေးဆေးပြောဆိုပုံစံ' },
@@ -590,6 +595,7 @@
       });
       
       updateVoiceDescription();
+      checkGeminiKeyStatus(); // Run check for key constraints
     });
 
     // Clean API Formatting Helpers
@@ -603,6 +609,38 @@
       return trimmed ? sanitizeKeyString(trimmed) : apiKey;
     }
 
+    // Dynamic warning and safety configurations based on Key input
+    function checkGeminiKeyStatus() {
+      const modelSelect = document.getElementById('translationModel');
+      const warningEl = document.getElementById('modelWarningMessage');
+      const hasCustomKey = geminiKey.trim() !== '';
+
+      if (!hasCustomKey) {
+        // Enforce gemini-2.5-flash-preview-09-2025 to prevent proxy crashes
+        modelSelect.value = 'gemini-2.5-flash-preview-09-2025';
+        
+        // Disable other options
+        Array.from(modelSelect.options).forEach(opt => {
+          if (opt.value !== 'gemini-2.5-flash-preview-09-2025') {
+            opt.disabled = true;
+          } else {
+            opt.disabled = false;
+          }
+        });
+
+        warningEl.innerHTML = "⚠️ <b>စနစ်၏ Built-in Free Key ကို သုံးနေပါသည်:</b> Developer API ကန့်သတ်ချက်ကြောင့် <b class='text-purple-400'>'gemini-2.5-flash-preview-09-2025'</b> model တစ်ခုတည်းကိုသာ ခွင့်ပြုထားပါသည်။ အခြား Model များကို သုံးလိုပါက API Settings တွင် သင်၏ကိုယ်ပိုင် Gemini Key ကို ထည့်သွင်းသိမ်းဆည်းပေးပါ။";
+        warningEl.classList.remove('hidden');
+      } else {
+        // Unlock all options for custom key
+        Array.from(modelSelect.options).forEach(opt => {
+          opt.disabled = false;
+        });
+
+        warningEl.innerHTML = "✓ <b>ကိုယ်ပိုင် API Key ကို ထည့်သွင်းထားပါသည်:</b> drop-down မီနူးမှ မည်သည့် Gemini Model ကိုမဆို လွတ်လပ်စွာ ရွေးချယ်အသုံးပြုနိုင်ပါပြီ။";
+        warningEl.classList.remove('hidden');
+      }
+    }
+
     // Save and Reset Keys Operations
     function saveKeys() {
       const gKeyInput = document.getElementById('inputGeminiKey').value;
@@ -614,6 +652,7 @@
       localStorage.setItem('joker_gemini_key', geminiKey);
       localStorage.setItem('joker_groq_key', groqKey);
 
+      checkGeminiKeyStatus(); // Refresh restriction states
       showSuccess('API Keys များကို သန့်စင်ပြီး အောင်မြင်စွာ သိမ်းဆည်းလိုက်ပါပြီ။ 🃏');
       hideError();
     }
@@ -627,6 +666,7 @@
       localStorage.removeItem('joker_gemini_key');
       localStorage.removeItem('joker_groq_key');
 
+      checkGeminiKeyStatus(); // Refresh restriction states
       showSuccess('API Keys များကို ရှင်းလင်းပြီးပါပြီ။ စနစ်၏ Built-in Free Key ကို သုံးနိုင်ပါသည်။');
       hideError();
     }
