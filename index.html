@@ -81,7 +81,7 @@
         </div>
 
         <p class="text-[10px] text-gray-400 leading-relaxed">
-          * <b class="text-purple-400 font-bold">သီဟ</b> နှင့် <b class="text-purple-400 font-bold">နီလာ</b> အသံများကို Key လုံးဝထည့်စရာမလိုဘဲ အခမဲ့ အသုံးပြုနိုင်ပါသည်။ ကိုယ်ပိုင် Gemini Key ရှိပါကလည်း ထည့်သွင်းအသုံးပြုနိုင်ပါသည်။
+          * <b class="text-purple-400 font-bold">သီဟ</b>၊ <b class="text-purple-400 font-bold">နီလာ</b> နှင့် အင်္ဂလိပ်/ထိုင်း အသံများကို Key လုံးဝထည့်စရာမလိုဘဲ အမြဲတမ်း အခမဲ့ စမ်းသပ်နိုင်ပါသည်။ ကိုယ်ပိုင် Gemini Key ရှိပါကလည်း ထည့်သွင်းအသုံးပြုနိုင်ပါသည်။
         </p>
 
         <div class="space-y-3">
@@ -137,8 +137,8 @@
             <div class="flex items-center space-x-2.5">
               <span class="text-lg">🔊</span>
               <div>
-                <span class="text-xs font-extrabold block">1. Speech Maker (သီဟ/နီလာ)</span>
-                <span class="text-[9px] text-gray-500">မြန်မာအသံ - သီဟ နှင့် နီလာ သီးသန့်</span>
+                <span class="text-xs font-extrabold block">1. Speech Maker (TTS)</span>
+                <span class="text-[9px] text-gray-500">မြန်မာ နှင့် အခြားသော Free အသံများ</span>
               </div>
             </div>
             <span id="dot-tts" class="text-purple-400">●</span>
@@ -264,15 +264,15 @@
         <div id="tool-container-tts" class="space-y-4 flex-1 flex flex-col justify-between">
           <div class="space-y-1 border-b border-purple-900/20 pb-3">
             <div class="flex justify-between items-center">
-              <h3 class="text-sm font-bold text-purple-400 font-mono">1. Speech Maker (သီဟ 🇲🇲 & နီလာ 🇲🇲 သီးသန့် အခမဲ့စနစ်)</h3>
+              <h3 class="text-sm font-bold text-purple-400 font-mono">1. Speech Maker (Microsoft Edge TTS Premium)</h3>
               <button
                 onclick="handleTTSGenerator()"
                 class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-5 py-2 rounded-lg transition-all shadow-md"
               >
-                🔊 အသံထုတ်မယ် (Cloud Premium)
+                🔊 အသံထုတ်မယ်
               </button>
             </div>
-            <p class="text-[10px] text-gray-500 font-bold">ပြင်ပ Key မလိုဘဲ သီဟ နှင့် နီလာ အဆင့်မြင့်မြန်မာအသံများကို ရာနှုန်းပြည့် အခမဲ့ ထုတ်လုပ်နိုင်ပါသည်။</p>
+            <p class="text-[10px] text-gray-500 font-bold">အနိမ့်အမြင့် (Pitch) နှင့် အမြန်နှုန်း (Speed) များကို Telegram Bot ကဲ့သို့ ရာခိုင်နှုန်းအလိုက် စိတ်ကြိုက် ပြုပြင်ထုတ်လုပ်နိုင်ပါပြီ။</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-12 gap-5 flex-1 py-2">
@@ -296,43 +296,42 @@
                   onchange="updateVoiceDescription()"
                   class="w-full bg-[#0b0b10] border border-purple-900/60 rounded-lg p-2 text-xs text-purple-300 focus:outline-none font-bold"
                 >
-                  <option value="thiha" selected>သီဟ (Thiha) 🇲🇲 [အမျိုးသားသံ]</option>
-                  <option value="nila">နီလာ (Nila) 🇲🇲 [အမျိုးသမီးသံ]</option>
+                  <!-- Populated from Javascript voice list directly -->
                 </select>
                 <p id="ttsVoiceDesc" class="text-[9.5px] text-gray-500 mt-2 italic"></p>
               </div>
 
-              <!-- Speed selection -->
+              <!-- Speed selection (-50% to +100%) -->
               <div>
                 <div class="flex justify-between text-[9px] font-mono text-gray-400 uppercase mb-1">
                   <span>Speed (အမြန်နှုန်း)</span>
-                  <span id="ttsSpeedLabel" class="text-purple-400 font-bold">1.0x</span>
+                  <span id="ttsSpeedLabel" class="text-purple-400 font-bold">0%</span>
                 </div>
                 <input
                   id="ttsSpeed"
                   type="range"
-                  min="0.5"
-                  max="2.0"
-                  step="0.1"
-                  value="1.0"
+                  min="-50"
+                  max="100"
+                  step="10"
+                  value="0"
                   oninput="updateTtsLabels()"
                   class="w-full accent-purple-600 cursor-pointer"
                 />
               </div>
 
-              <!-- Pitch selection -->
+              <!-- Pitch selection (-50Hz to +50Hz) -->
               <div>
                 <div class="flex justify-between text-[9px] font-mono text-gray-400 uppercase mb-1">
                   <span>Pitch (အနိမ့်အမြင့်)</span>
-                  <span id="ttsPitchLabel" class="text-purple-400 font-bold">1.0</span>
+                  <span id="ttsPitchLabel" class="text-purple-400 font-bold">0Hz</span>
                 </div>
                 <input
                   id="ttsPitch"
                   type="range"
-                  min="0.5"
-                  max="2.0"
-                  step="0.1"
-                  value="1.0"
+                  min="-50"
+                  max="50"
+                  step="2"
+                  value="0"
                   oninput="updateTtsLabels()"
                   class="w-full accent-purple-600 cursor-pointer"
                 />
@@ -350,10 +349,10 @@
             <a
               id="ttsDownloadLink"
               href="#"
-              download="myanmar_voice.wav"
+              download="myanmar_voice.mp3"
               class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-lg whitespace-nowrap transition-all shadow-md"
             >
-              📥 Download WAV
+              📥 Download MP3
             </a>
           </div>
         </div>
@@ -538,7 +537,7 @@
 
         <!-- FOOTER -->
         <div class="text-center text-[10px] text-gray-600 border-t border-purple-950/40 pt-4 mt-6">
-          Joker Media Engine is powered by Gemini 2.5 & Groq Whisper Large V3
+          Joker Media Engine is powered by Microsoft Edge TTS & Groq Whisper Large V3
         </div>
 
       </div>
@@ -566,11 +565,31 @@
     let translationOutputVal = '';
     let srtOutputVal = '';
 
+    // ရနိုင်သမျှ Free Edge-TTS အသံများ စာရင်း (Exactly matched with user's bot)
+    const VOICE_LIST = {
+      "nilar": {"id": "my-MM-NilarNeural", "name": "🎙️ မနီလာ (မြန်မာ)", "desc": "မြန်မာအမျိုးသမီးသံ - သဘာဝကျပြီး ယဉ်ကျေးပျော့ပျောင်းသောလေသံ"},
+      "thiha": {"id": "my-MM-ThihaNeural", "name": "🎙️ မောင်သီဟ (မြန်မာ)", "desc": "မြန်မာအမျိုးသားသံ - တည်ငြိမ်ပြီး စကားပြောပြတ်သားသောလေသံ"},
+      "ava": {"id": "en-US-AvaNeural", "name": "🇺🇸 Ms. Ava (US)", "desc": "အမေရိကန်အမျိုးသမီးသံ - သွက်လက်ချက်ချာသော လေသံ"},
+      "andrew": {"id": "en-US-AndrewNeural", "name": "🇺🇸 Mr. Andrew (US)", "desc": "အမေရိကန်အမျိုးသားသံ - ပရော်ဖက်ရှင်နယ်ကျသော လေသံ"},
+      "emma": {"id": "en-GB-SoniaNeural", "name": "🇬🇧 Ms. Sonia (UK)", "desc": "ဗြိတိန်အမျိုးသမီးသံ - ယဉ်ကျေးပြတ်သားသော အင်္ဂလိပ်လေယူလေသိမ်း"},
+      "brian": {"id": "en-GB-RyanNeural", "name": "🇬🇧 Mr. Ryan (UK)", "desc": "ဗြိတိန်အမျိုးသားသံ - နက်ရှိုင်းပြီး အသံဩဇာရှိသော လေသံ"},
+      "prem": {"id": "th-TH-PremwadeeNeural", "name": "🇹🇭 မပရမ်ဝတီ (Thai)", "desc": "ထိုင်းအမျိုးသမီးသံ - သဘာဝကျသော ထိုင်းဘာသာစကားလေသံ"}
+    };
+
     // Initialization
     window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('inputGeminiKey').value = geminiKey;
       document.getElementById('inputGroqKey').value = groqKey;
 
+      // Populate voice options
+      const voiceSelect = document.getElementById('ttsVoiceSelect');
+      Object.keys(VOICE_LIST).forEach(key => {
+        const option = document.createElement('option');
+        option.value = key;
+        option.innerText = VOICE_LIST[key].name;
+        voiceSelect.appendChild(option);
+      });
+      
       updateVoiceDescription();
       checkGeminiKeyStatus(); // Run check for key constraints
     });
@@ -832,78 +851,24 @@
       }
     }
 
-    // Split text into 500 length chunks for double API calling speed
-    function splitTextIntoChunks(text, maxLength = 500) {
-      const regex = /([^။၊\n.!?]+[။၊\n.!?]*)/g;
-      const sentences = text.match(regex) || [text];
-      const chunks = [];
-      let currentChunk = "";
-
-      for (let sentence of sentences) {
-        if ((currentChunk + sentence).length > maxLength) {
-          if (currentChunk.trim()) {
-            chunks.push(currentChunk.trim());
-          }
-          currentChunk = sentence;
-        } else {
-          currentChunk += sentence;
-        }
-      }
-      if (currentChunk.trim()) {
-        chunks.push(currentChunk.trim());
-      }
-      return chunks;
-    }
-
     // Dynamic label updater
     function updateTtsLabels() {
-      const speed = document.getElementById('ttsSpeed').value;
-      const pitch = document.getElementById('ttsPitch').value;
-      document.getElementById('ttsSpeedLabel').innerText = `${speed}x`;
-      document.getElementById('ttsPitchLabel').innerText = pitch;
+      const speed = parseInt(document.getElementById('ttsSpeed').value);
+      const pitch = parseInt(document.getElementById('ttsPitch').value);
+      document.getElementById('ttsSpeedLabel').innerText = (speed >= 0 ? "+" : "") + speed + "%";
+      document.getElementById('ttsPitchLabel').innerText = (pitch >= 0 ? "+" : "") + pitch + "Hz";
     }
 
     function updateVoiceDescription() {
-      const voiceId = document.getElementById('ttsVoiceSelect').value;
-      const descEl = document.getElementById('ttsVoiceDesc');
-
-      if (voiceId === 'thiha') {
-        descEl.innerText = "သီဟ (Thiha) 🇲🇲 [ကျားသံ] - သဘာဝကျပြီး တည်ငြိမ်ပြတ်သားသော မြန်မာအမျိုးသား အသံစနစ် (Fenrir Dynamic Engine)";
-      } else {
-        descEl.innerText = "နီလာ (Nila) 🇲🇲 [မသံ] - ယဉ်ကျေးပျော့ပျောင်းပြီး ချိုသာသော မြန်မာအမျိုးသမီး အသံစနစ် (Kore Dynamic Engine)";
+      const voiceKey = document.getElementById('ttsVoiceSelect').value;
+      const voiceObj = VOICE_LIST[voiceKey];
+      if (voiceObj) {
+        document.getElementById('ttsVoiceDesc').innerText = voiceObj.desc;
       }
-    }
-
-    // Universal API Caller with Robust Exponential Backoff (5 Retries: 1s, 2s, 4s, 8s, 16s)
-    async function fetchGeminiWithBackoff(url, payload) {
-      let delay = 1000;
-      for (let i = 0; i < 5; i++) {
-        try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          
-          if (response.ok) {
-            return await response.json();
-          }
-          
-          if (response.status >= 400 && response.status < 500 && response.status !== 429) {
-            const errData = await response.json().catch(() => ({}));
-            throw new Error(errData.error?.message || `Client Error ${response.status}`);
-          }
-        } catch (err) {
-          if (i === 4) throw err; // Final throw if all 5 retries fail
-        }
-        await new Promise(resolve => setTimeout(resolve, delay));
-        delay *= 2;
-      }
-      throw new Error("API call failed after 5 retries.");
     }
 
     // =========================================================================
-    // EXCLUSIVE BURMESE CLOUD TTS PIPELINE (API FREE & AUTO FALLBACK)
+    // HIGH-PERFORMANCE MICROSOFT EDGE TTS SYSTEM (No API Key Required, 100% Free)
     // =========================================================================
     async function handleTTSGenerator() {
       hideError();
@@ -916,112 +881,60 @@
         return;
       }
 
-      showLoader('မြန်မာစာသားများကို ခွဲခြမ်းစိတ်ဖြာပြီး Cloud Speech Maker ဖြင့် ချိတ်ဆက်နေပါသည်...');
+      showLoader('အဆင်မြင့် အမြန်ဆုံး Edge TTS စနစ်ဖြင့် မြန်မာအသံဖိုင်ကို တည်ဆောက်နေပါသည်...');
 
-      const textChunks = splitTextIntoChunks(rawInput, 500);
-      const pcmSegments = [];
-      const activeKey = getActiveGeminiKey();
+      const ttsVoiceKey = document.getElementById('ttsVoiceSelect').value;
+      const voiceId = VOICE_LIST[ttsVoiceKey].id;
+      
+      const speedValue = parseInt(document.getElementById('ttsSpeed').value);
+      const pitchValue = parseInt(document.getElementById('ttsPitch').value);
 
-      const ttsVoice = document.getElementById('ttsVoiceSelect').value;
-      const ttsSpeed = document.getElementById('ttsSpeed').value;
-      const ttsPitch = document.getElementById('ttsPitch').value;
+      // Convert Speed relative value to percentage format (e.g. +10% or -15%)
+      const rateStr = (speedValue >= 0 ? "+" : "") + speedValue + "%";
+      const pitchStr = (pitchValue >= 0 ? "+" : "") + pitchValue + "Hz";
 
       try {
-        let targetVoice = 'Fenrir'; // Default Fenrir base for Thiha
-        let stylePrompt = "Say cheerfully: Hello!";
+        // Construct edge endpoint
+        const endpoint = `https://edge-tts.vercel.app/api/tts?voice=${voiceId}&rate=${encodeURIComponent(rateStr)}&pitch=${encodeURIComponent(pitchStr)}&text=${encodeURIComponent(rawInput)}`;
         
-        if (ttsVoice === 'nila') {
-          targetVoice = 'Kore'; // Kore base for Nila
+        const response = await fetch(endpoint);
+        if (!response.ok) {
+          throw new Error("Edge TTS Server အဝေးလှမ်းခေါ်မှု ယာယီအဆင်မပြေပါ။ ဖုန်း/စက်တွင်း (Local Engine) ဖြင့် အစားထိုးဖတ်ကြားပေးပါမည်။");
         }
 
-        let audioSampleRate = 24000; // Default sample rate
+        const audioBlob = await response.blob();
+        const finalAudioUrl = URL.createObjectURL(audioBlob);
 
-        for (let i = 0; i < textChunks.length; i++) {
-          showLoader(`Cloud အသံဖိုင်အပိုင်း (${i + 1}/${textChunks.length}) ကို အခမဲ့တည်ဆောက်နေပါသည်...`);
-          
-          const chunkText = textChunks[i];
-          const speechControlInput = `Make ${targetVoice} sound excited: ${chunkText}`;
-
-          const payload = {
-            contents: [{ parts: [{ text: speechControlInput }] }],
-            generationConfig: {
-              responseModalities: ["AUDIO"],
-              speechConfig: {
-                voiceConfig: {
-                  prebuiltVoiceConfig: { voiceName: targetVoice }
-                }
-              }
-            },
-            model: "gemini-2.5-flash-preview-tts"
-          };
-
-          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${activeKey}`;
-
-          const data = await fetchGeminiWithBackoff(url, payload);
-          const inlinePart = data.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
-          const base64Audio = inlinePart?.inlineData?.data;
-          const mimeType = inlinePart?.inlineData?.mimeType || "";
-
-          if (!base64Audio) {
-            throw new Error(`အပိုင်း (${i + 1}) တွင် အသံဒေတာ မရရှိပါ။ API key သို့မဟုတ် network နှောင့်နှေးမှုရှိနိုင်ပါသည်။`);
-          }
-
-          const rateMatch = mimeType.match(/rate=(\d+)/);
-          if (rateMatch) {
-            audioSampleRate = parseInt(rateMatch[1], 10);
-          }
-
-          const binaryString = atob(base64Audio);
-          const len = binaryString.length;
-          const bytes = new Uint8Array(len);
-          for (let j = 0; j < len; j++) {
-            bytes[j] = binaryString.charCodeAt(j);
-          }
-
-          const chunkPcm16 = new Int16Array(bytes.buffer);
-          pcmSegments.push(chunkPcm16);
-        }
-
-        showLoader('အသံဖိုင်အပိုင်းအားလုံးကို အောင်မြင်စွာ ပေါင်းစပ်နေပါသည်...');
-        const totalSamples = pcmSegments.reduce((acc, curr) => acc + curr.length, 0);
-        const mergedPcm = new Int16Array(totalSamples);
-        let offset = 0;
-        for (const segment of pcmSegments) {
-          mergedPcm.set(segment, offset);
-          offset += segment.length;
-        }
-
-        const wavBlob = pcmToWav(mergedPcm, audioSampleRate);
-        const finalAudioUrl = URL.createObjectURL(wavBlob);
-
-        // Render TTS Output
+        // Render Output
         const player = document.getElementById('ttsAudioPlayer');
         player.src = finalAudioUrl;
         
         const dlLink = document.getElementById('ttsDownloadLink');
         dlLink.href = finalAudioUrl;
-        dlLink.download = `${ttsVoice}_myanmar_voice.wav`;
+        dlLink.download = `${ttsVoiceKey}_voice_output.mp3`;
 
         document.getElementById('ttsOutputWrapper').classList.remove('hidden');
-        showSuccess(`မြန်မာအသံဖိုင် (${ttsVoice === 'thiha' ? 'သီဟသံ' : 'နီလာသံ'}) ကို အောင်မြင်စွာ ထုတ်လုပ်ပြီးပါပြီ။ 🔊`);
+        showSuccess(`အသံဖိုင် (${VOICE_LIST[ttsVoiceKey].name}) ကို အောင်မြင်စွာ တိုက်ရိုက်ထုတ်လုပ်ပြီးပါပြီ။ 🔊`);
       } catch (err) {
-        showError(`Cloud Error: ${err.message}. စက်တွင်း (Local Engine) အသံဖြင့် အစားထိုးဖတ်ကြားပေးနေပါသည်။`);
-        handleLocalFallbackTTS(rawInput, ttsVoice, ttsSpeed, ttsPitch);
+        showError(`TTS Error: ${err.message}`);
+        // Fallback to Web Speech Synthesis instantly
+        handleLocalFallbackTTS(rawInput, ttsVoiceKey, speedValue);
       } finally {
         hideLoader();
       }
     }
 
-    // Local Web Speech Fallback System (No Key, 0s Delay)
-    function handleLocalFallbackTTS(text, voiceType, speed, pitch) {
+    // Web Speech API Fallback
+    function handleLocalFallbackTTS(text, voiceKey, speedPercent) {
       if (typeof speechSynthesis === 'undefined') return;
       speechSynthesis.cancel();
 
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = parseFloat(speed);
-      utterance.pitch = parseFloat(pitch);
+      
+      // Map percentage to scale 0.5 to 2.0
+      const localSpeed = 1.0 + (speedPercent / 100);
+      utterance.rate = Math.max(0.5, Math.min(2.0, localSpeed));
 
-      // Look up for a system Burmese voice first, otherwise use default local voice
       const localVoices = speechSynthesis.getVoices();
       const myanmarVoice = localVoices.find(v => v.lang.includes('my') || v.lang.includes('MM'));
       if (myanmarVoice) {
@@ -1029,38 +942,10 @@
       }
 
       utterance.onend = () => {
-        showSuccess("စက်တွင်း အရန်အသံစနစ်ဖြင့် အပြည့်အဝ ဖတ်ကြားပြီးစီးပါပြီ။");
+        showSuccess("စက်တွင်း အရန်အသံစနစ်ဖြင့် ဖတ်ကြားပြီးစီးပါပြီ။");
       };
 
       speechSynthesis.speak(utterance);
-    }
-
-    function pcmToWav(pcmData, sampleRate) {
-      const buffer = new ArrayBuffer(44 + pcmData.length * 2);
-      const view = new DataView(buffer);
-      const writeString = (view, offset, string) => {
-        for (let i = 0; i < string.length; i++) {
-          view.setUint8(offset + i, string.charCodeAt(i));
-        }
-      };
-      writeString(view, 0, 'RIFF');
-      view.setUint32(4, 36 + pcmData.length * 2, true);
-      writeString(view, 8, 'WAVE');
-      writeString(view, 12, 'fmt ');
-      view.setUint32(16, 16, true);
-      view.setUint16(20, 1, true); // PCM Format
-      view.setUint16(22, 1, true); // Mono Channel
-      view.setUint32(24, sampleRate, true);
-      view.setUint32(28, sampleRate * 2, true);
-      view.setUint16(32, 2, true);
-      view.setUint16(34, 16, true);
-      writeString(view, 36, 'data');
-      view.setUint32(40, pcmData.length * 2, true);
-
-      for (let i = 0; i < pcmData.length; i++) {
-        view.setInt16(44 + i * 2, pcmData[i], true);
-      }
-      return new Blob([buffer], { type: 'audio/wav' });
     }
 
     // =========================================================================
@@ -1117,7 +1002,31 @@ ${translationInput}`;
 
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${activeKey}`;
         
-        const data = await fetchGeminiWithBackoff(url, payload);
+        // 5 Retries with Backoff
+        let delay = 1000;
+        let data;
+        let responseOk = false;
+        for (let i = 0; i < 5; i++) {
+          try {
+            const response = await fetch(url, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            if (response.ok) {
+              data = await response.json();
+              responseOk = true;
+              break;
+            }
+          } catch (e) {
+            if (i === 4) throw e;
+          }
+          await new Promise(r => setTimeout(r, delay));
+          delay *= 2;
+        }
+
+        if (!responseOk) throw new Error("ဘာသာပြန်ဆာဗာ တုံ့ပြန်မှုမရှိပါ။ API key ကို စစ်ဆေးပါ။");
+
         const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
         
         if (!textResult) {
