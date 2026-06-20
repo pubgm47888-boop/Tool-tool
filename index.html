@@ -22,7 +22,6 @@
     }
   </script>
   <style>
-    /* Premium visual overrides */
     body {
       background-color: #060609;
     }
@@ -77,26 +76,26 @@
         <div class="flex justify-between items-center border-b border-purple-900/30 pb-2">
           <span class="text-xs font-bold text-emerald-400 font-mono flex items-center space-x-1.5">
             <span>🔑</span>
-            <span>API Settings (ပြင်ပ Key သုံးရန်)</span>
+            <span>API Settings (ပြင်ပ Key စီမံမှု)</span>
           </span>
         </div>
 
         <p class="text-[10px] text-gray-400 leading-relaxed">
-          * <b class="text-purple-400 font-bold">သီဟ</b> နှင့် <b class="text-purple-400 font-bold">နီလာ</b> အသံများကို Key ထည့်စရာမလိုဘဲ အခမဲ့ စမ်းသပ်နိုင်ပါသည်။ ကိုယ်ပိုင် Gemini Key ရှိပါကလည်း ထည့်သွင်းအသုံးပြုနိုင်ပါသည်။
+          * <b class="text-purple-400 font-bold">သီဟ</b> နှင့် <b class="text-purple-400 font-bold">နီလာ</b> အသံထုတ်လုပ်မှုများအတွက် <b class="text-emerald-400 font-bold">API Key လုံးဝ မလိုပါ။</b> အခမဲ့ တိုက်ရိုက် သုံးနိုင်ပါသည်။
         </p>
 
         <div class="space-y-3">
           <div>
-            <label class="block text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-1">Gemini API Key</label>
+            <label class="block text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-1">Gemini API Key (တခြားအသံ/ဘာသာပြန်ရန်)</label>
             <input
               id="inputGeminiKey"
               type="password"
-              placeholder="စနစ်၏ Built-in Free Key ကို သုံးရန် ကွက်လပ်ထားပါ"
+              placeholder="သီဟ/နီလာ အတွက် ထည့်ရန်မလိုပါ"
               class="w-full bg-[#040406] border border-purple-900/40 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 font-mono"
             />
           </div>
           <div>
-            <label class="block text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-1">Groq API Key</label>
+            <label class="block text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-1">Groq API Key (အသံမှစာသားပြောင်းရန်)</label>
             <input
               id="inputGroqKey"
               type="password"
@@ -139,7 +138,7 @@
               <span class="text-lg">🔊</span>
               <div>
                 <span class="text-xs font-extrabold block">1. Speech Maker (TTS)</span>
-                <span class="text-[9px] text-gray-500">မြန်မာအသံ - သီဟ နှင့် နီလာ</span>
+                <span class="text-[9px] text-gray-500">သီဟ နှင့် နီလာ - API Key မလိုပါ 🆓</span>
               </div>
             </div>
             <span id="dot-tts" class="text-purple-400">●</span>
@@ -154,11 +153,27 @@
             <div class="flex items-center space-x-2.5">
               <span class="text-lg">🌐</span>
               <div>
-                <span class="text-xs font-extrabold block">2. Myanmar Translator</span>
-                <span class="text-[9px] text-gray-500">တိုက်ရိုက် နှင့် နက်ရေတာ စတိုင်</span>
+                <span class="text-xs font-extrabold block">2. Text Translator</span>
+                <span class="text-[9px] text-gray-500">မြန်မာဘာသာပြန်စနစ်</span>
               </div>
             </div>
             <span id="dot-translate" class="text-emerald-400 hidden">●</span>
+          </button>
+
+          <!-- SRT TRANSLATOR BTN -->
+          <button
+            id="btn-tab-srt-translate"
+            onclick="switchTab('srt-translate')"
+            class="w-full flex items-center justify-between p-3 rounded-xl border text-left transition-all bg-[#040406] border-gray-900/80 text-gray-400 hover:text-white"
+          >
+            <div class="flex items-center space-x-2.5">
+              <span class="text-lg">🔤</span>
+              <div>
+                <span class="text-xs font-extrabold block">3. SRT Subtitle Translator</span>
+                <span class="text-[9px] text-gray-500">အချိန်ကိုက် စာတန်းထိုး ဘာသာပြန်စနစ်</span>
+              </div>
+            </div>
+            <span id="dot-srt-translate" class="text-indigo-400 hidden">●</span>
           </button>
 
           <!-- TRANSCRIPT BTN -->
@@ -170,7 +185,7 @@
             <div class="flex items-center space-x-2.5">
               <span class="text-lg">📝</span>
               <div>
-                <span class="text-xs font-extrabold block">3. Transcript Generator</span>
+                <span class="text-xs font-extrabold block">4. Transcript Generator</span>
                 <span class="text-[9px] text-gray-500">အသံမှ စာသားပြောင်းရန်</span>
               </div>
             </div>
@@ -186,8 +201,8 @@
             <div class="flex items-center space-x-2.5">
               <span class="text-lg">🎬</span>
               <div>
-                <span class="text-xs font-extrabold block">4. SRT Subtitle Maker</span>
-                <span class="text-[9px] text-gray-500">အချိန်ကိုက်စာတန်းထိုးစနစ်</span>
+                <span class="text-xs font-extrabold block">5. SRT Subtitle Maker</span>
+                <span class="text-[9px] text-gray-500">အသံဖိုင်မှ စာတန်းထိုးထုတ်စနစ်</span>
               </div>
             </div>
             <span id="dot-srt" class="text-purple-400 hidden">●</span>
@@ -265,7 +280,7 @@
         <div id="tool-container-tts" class="space-y-4 flex-1 flex flex-col justify-between">
           <div class="space-y-1 border-b border-purple-900/20 pb-3">
             <div class="flex justify-between items-center">
-              <h3 class="text-sm font-bold text-purple-400 font-mono">1. Text to Speech (သီဟ 🇲🇲 & နီလာ 🇲🇲 နှင့် အသံစနစ်များ)</h3>
+              <h3 class="text-sm font-bold text-purple-400 font-mono">1. Text to Speech (သီဟ 🇲🇲 & နီလာ 🇲🇲 အပါအဝင် အသံစနစ်များ)</h3>
               <button
                 onclick="handleTTSGenerator()"
                 class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all"
@@ -273,7 +288,7 @@
                 အသံထုတ်မယ်
               </button>
             </div>
-            <p class="text-[10px] text-gray-500 font-bold">စာလုံးအကန့်အသတ်မရှိ (Unlimited Chunk Merger algorithm) ဖြင့် အရှည်ကြီးကို စိတ်ချလက်ချ ဖန်တီးနိုင်ပါပြီ။</p>
+            <p class="text-[10px] text-emerald-400 font-bold">✨ သီဟ နှင့် နီလာ အသံများကို API Key မလိုဘဲ အခမဲ့ တိုက်ရိုက် သုံးနိုင်ပါသည်။</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-12 gap-5 flex-1 py-2">
@@ -358,7 +373,7 @@
           </div>
         </div>
 
-        <!-- TOOL 2: TRANSLATOR -->
+        <!-- TOOL 2: TEXT TRANSLATOR -->
         <div id="tool-container-translate" class="space-y-4 flex-1 flex flex-col justify-between hidden">
           <div class="space-y-1 border-b border-purple-900/20 pb-3">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
@@ -434,11 +449,72 @@
           </div>
         </div>
 
-        <!-- TOOL 3: TRANSCRIPT GENERATOR -->
+        <!-- TOOL 3: SRT SUBTITLE TRANSLATOR (NEW) -->
+        <div id="tool-container-srt-translate" class="space-y-4 flex-1 flex flex-col justify-between hidden">
+          <div class="space-y-1 border-b border-purple-900/20 pb-3">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+              <h3 class="text-sm font-bold text-indigo-400 font-mono">3. SRT Subtitle Translator (အချိန်ကိုက် စာတန်းထိုး ဘာသာပြန်စနစ်)</h3>
+              <div class="flex items-center space-x-2">
+                <button
+                  onclick="document.getElementById('srtFileInput').click()"
+                  class="bg-gray-800 hover:bg-gray-700 text-gray-200 text-xs font-bold px-3 py-2 rounded-lg transition-all"
+                >
+                  📁 SRT ဖိုင်တင်ပါ
+                </button>
+                <input
+                  type="file"
+                  id="srtFileInput"
+                  accept=".srt"
+                  onchange="handleSrtUpload(event)"
+                  class="hidden"
+                />
+                <button
+                  onclick="handleSrtTranslation()"
+                  class="bg-indigo-700 hover:bg-indigo-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all"
+                >
+                  Subtitle ပြန်မယ်
+                </button>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-500 font-bold">SRT Subtitle ဖိုင်များကို တင်သွင်းပြီး စက္ကန့်အချိန်ကိုက်များမပျက်စေဘဲ မြန်မာဘာသာသို့ တိုက်ရိုက်ပြန်ဆိုနိုင်ပါသည်။</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 py-2">
+            <div class="flex flex-col">
+              <label class="text-[9px] font-mono text-gray-500 uppercase tracking-wider block mb-1">Source SRT Subtitles (မူရင်း SRT)</label>
+              <textarea
+                id="srtTranslateInput"
+                placeholder="SRT စာတန်းထိုးများကို ဤနေရာတွင် တိုက်ရိုက် Paste ချပါ သို့မဟုတ် ဖိုင်တင်သွင်းပါ..."
+                class="w-full bg-[#040406] border border-purple-950/30 rounded-xl p-3 text-xs text-gray-300 h-64 focus:outline-none focus:border-indigo-500 resize-none custom-scrollbar"
+              ></textarea>
+            </div>
+
+            <div class="flex flex-col">
+              <label class="text-[9px] font-mono text-gray-500 uppercase tracking-wider block mb-1">Burmese SRT Subtitles (မြန်မာပြန် SRT)</label>
+              <textarea
+                id="srtTranslateOutput"
+                readonly
+                placeholder="မြန်မာပြန် SRT ရလဒ်များ ဤနေရာတွင် ထွက်လာပါမည်..."
+                class="w-full bg-[#040406] border border-purple-950/30 rounded-xl p-3 text-xs text-indigo-400 h-64 focus:outline-none resize-none custom-scrollbar"
+              ></textarea>
+            </div>
+          </div>
+
+          <div id="srtTranslateFlowWrapper" class="flex justify-end mt-2 hidden">
+            <button
+              onclick="downloadSrtTranslatedFile()"
+              class="bg-indigo-950 hover:bg-indigo-900 text-indigo-400 border border-indigo-900/60 text-xs font-bold px-4 py-2 rounded-xl transition-all"
+            >
+              📥 Download Translated SRT File
+            </button>
+          </div>
+        </div>
+
+        <!-- TOOL 4: TRANSCRIPT GENERATOR -->
         <div id="tool-container-transcript" class="space-y-4 flex-1 flex flex-col justify-between hidden">
           <div class="space-y-1 border-b border-purple-900/20 pb-3">
             <div class="flex justify-between items-center">
-              <h3 class="text-sm font-bold text-purple-400 font-mono">3. Speech-to-Text Transcript Generator</h3>
+              <h3 class="text-sm font-bold text-purple-400 font-mono">4. Speech-to-Text Transcript Generator</h3>
               <button
                 onclick="handleTranscriptGenerator()"
                 class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all"
@@ -478,11 +554,11 @@
           </div>
         </div>
 
-        <!-- TOOL 4: SRT SUBTITLE -->
+        <!-- TOOL 5: SRT SUBTITLE MAKER -->
         <div id="tool-container-srt" class="space-y-4 flex-1 flex flex-col justify-between hidden">
           <div class="space-y-1 border-b border-purple-900/20 pb-3">
             <div class="flex justify-between items-center">
-              <h3 class="text-sm font-bold text-purple-400 font-mono">4. SRT Subtitles Generator</h3>
+              <h3 class="text-sm font-bold text-purple-400 font-mono">5. SRT Subtitles Generator</h3>
               <button
                 onclick="handleSRTGenerator()"
                 class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all"
@@ -542,11 +618,12 @@
     let transcriptOutputVal = '';
     let translationOutputVal = '';
     let srtOutputVal = '';
+    let srtTranslateOutputVal = '';
 
     // Voice Definition Array
     const geminiVoices = [
-      { id: 'thiha', name: 'သီဟ (Thiha) 🇲🇲 [ကျား]', gender: 'Male', desc: 'မြန်မာအမျိုးသားသံ - သဘာဝကျပြီး တည်ငြိမ်သောလေသံ (Fenrir Base)' },
-      { id: 'nila', name: 'နီလာ (Nila) 🇲🇲 [မ]', gender: 'Female', desc: 'မြန်မာအမျိုးသမီးသံ - ယဉ်ကျေးပျော့ပျောင်းသောလေသံ (Kore Base)' },
+      { id: 'thiha', name: 'သီဟ (Thiha) 🇲🇲 [ကျား] - (Free 🆓)', gender: 'Male', desc: 'မြန်မာအမျိုးသားသံ - သဘာဝကျပြီး တည်ငြိမ်သောလေသံ (Fenrir Base) [API Key လုံးဝ မလိုအပ်ပါ]' },
+      { id: 'nila', name: 'နီလာ (Nila) 🇲🇲 [မ] - (Free 🆓)', gender: 'Female', desc: 'မြန်မာအမျိုးသမီးသံ - ယဉ်ကျေးပျော့ပျောင်းသောလေသံ (Kore Base) [API Key လုံးဝ မလိုအပ်ပါ]' },
       { id: 'Puck', name: 'Puck 🇬🇧', gender: 'Male', desc: 'အင်္ဂလိပ်အမျိုးသား - သွက်လက်ပြီး အားတက်သရောရှိသည်' },
       { id: 'Charon', name: 'Charon 🇬🇧', gender: 'Male', desc: 'အင်္ဂလိပ်အမျိုးသား - လေးနက်ပြီး တည်ငြိမ်သောလေသံ' },
       { id: 'Kore', name: 'Kore 🇬🇧', gender: 'Female', desc: 'အင်္ဂလိပ်အမျိုးသမီး - ကြည်လင်ပြတ်သားပြီး ယဉ်ကျေးသည်' },
@@ -581,7 +658,11 @@
       return str.replace(/[^\x20-\x7E]/g, "").trim();
     }
 
-    function getActiveGeminiKey() {
+    // UPDATED KEY MANAGEMENT: For Free voices (Thiha & Nilar), bypass user API key
+    function getActiveGeminiKey(isFreeVoice = false) {
+      if (isFreeVoice) {
+        return apiKey; // Return the system runtime key
+      }
       const trimmed = geminiKey.trim();
       return trimmed ? sanitizeKeyString(trimmed) : apiKey;
     }
@@ -618,7 +699,7 @@
     function switchTab(tabId) {
       activeTool = tabId;
       
-      const tabs = ['tts', 'translate', 'transcript', 'srt'];
+      const tabs = ['tts', 'translate', 'srt-translate', 'transcript', 'srt'];
       tabs.forEach(t => {
         const btn = document.getElementById(`btn-tab-${t}`);
         const dot = document.getElementById(`dot-${t}`);
@@ -783,7 +864,7 @@
     }
 
     // =========================================================================
-    // 1. TEXT TO SPEECH (TTS) GENERATION PIPELINE
+    // 1. TEXT TO SPEECH (TTS) GENERATION PIPELINE (UPDATED FREE VOICE BYPASS)
     // =========================================================================
     async function handleTTSGenerator() {
       hideError();
@@ -800,11 +881,20 @@
 
       const textChunks = splitTextIntoChunks(rawInput, 250);
       const pcmSegments = [];
-      const activeKey = getActiveGeminiKey();
 
       const ttsVoice = document.getElementById('ttsVoiceSelect').value;
       const ttsSpeed = document.getElementById('ttsSpeed').value;
       const ttsPitch = document.getElementById('ttsPitch').value;
+
+      // Detect if voice is Free
+      const isFreeVoice = (ttsVoice === 'thiha' || ttsVoice === 'nila');
+      const activeKey = getActiveGeminiKey(isFreeVoice);
+
+      if (!activeKey && !isFreeVoice) {
+        showError('Gemini API Key မတွေ့ရှိပါ။ ကျေးဇူးပြု၍ API Settings တွင် Key အရင်ထည့်ပါ။ (သီဟ သို့မဟုတ် နီလာ ကို ရွေးချယ်ပါက Key မလိုဘဲ အခမဲ့ရနိုင်ပါသည်)');
+        hideLoader();
+        return;
+      }
 
       try {
         let targetVoice = 'Fenrir'; 
@@ -842,8 +932,8 @@ ${chunkText}`;
             }
           };
 
-          // FIXED ENDPOINT: API Version v1beta update to stable gemini-2.5-flash-preview-09-2025
-          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${activeKey}`;
+          // STABLE MODEL: Using gemini-2.5-flash which is widely supported
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${activeKey}`;
 
           const response = await fetch(url, {
             method: 'POST',
@@ -895,7 +985,7 @@ ${chunkText}`;
         dlLink.download = `${ttsVoice}_voice_${ttsSpeed}x.wav`;
 
         document.getElementById('ttsOutputWrapper').classList.remove('hidden');
-        showSuccess(`စာလုံးအကန့်အသတ်မရှိ (အပိုင်း ${textChunks.length} ပိုင်းပါဝင်သော) အသံဖိုင်ကို စုစည်းဖန်တီးပြီးပါပြီ။ 🔊`);
+        showSuccess(`အသံဖိုင် စုပေါင်းဖန်တီးမှု ပြီးမြောက်ပါပြီ။ (အပိုင်း ${textChunks.length} ပိုင်း စုစည်းပြီး) 🔊`);
       } catch (err) {
         showError(`TTS Error: ${err.message}`);
       } finally {
@@ -932,7 +1022,7 @@ ${chunkText}`;
     }
 
     // =========================================================================
-    // 2. MYANMAR TRANSLATOR ENGINE
+    // 2. TEXT TRANSLATOR ENGINE
     // =========================================================================
     async function handleTranslationGenerator() {
       hideError();
@@ -967,8 +1057,8 @@ ${chunkText}`;
       }
 
       try {
-        const activeKey = getActiveGeminiKey();
-        const prompt = `You are a professional translator and content creator specializing in English to Myanmar translation.
+        const activeKey = getActiveGeminiKey(false);
+        const prompt = `You are a professional translator specializing in English to Myanmar.
 
 Instruction Style: ${styleInstruction}
 Tone Requirement: ${toneInstruction}
@@ -978,8 +1068,8 @@ ${translationInput}`;
 
         const payload = { contents: [{ parts: [{ text: prompt }] }] };
         
-        // FIXED ENDPOINT: API Version v1beta update to stable gemini-2.5-flash-preview-09-2025
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${activeKey}`;
+        // STABLE MODEL DEFINITION
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${activeKey}`;
         
         const response = await fetch(url, {
           method: 'POST',
@@ -1008,7 +1098,76 @@ ${translationInput}`;
     }
 
     // =========================================================================
-    // 3. TRANSCRIPT GENERATOR
+    // 3. SRT SUBTITLE TRANSLATOR (NEW)
+    // =========================================================================
+    function handleSrtUpload(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          document.getElementById('srtTranslateInput').value = evt.target.result;
+          showSuccess('SRT Subtitle ဖိုင်အား အောင်မြင်စွာ တင်သွင်းပြီးပါပြီ။');
+        };
+        reader.readAsText(file);
+      }
+    }
+
+    async function handleSrtTranslation() {
+      hideError();
+      hideSuccess();
+      document.getElementById('srtTranslateOutput').value = '';
+
+      const srtInput = document.getElementById('srtTranslateInput').value.trim();
+      if (!srtInput) {
+        showError('ကျေးဇူးပြု၍ ဘာသာပြန်ဆိုရန် SRT စာတန်းထိုးများကို ထည့်သွင်းပေးပါ!');
+        return;
+      }
+
+      showLoader('SRT စာတန်းထိုးများကို အချိန်ကိုက်ပုံစံမပျက်စေဘဲ မြန်မာပြန်ဆိုနေပါသည်...');
+
+      try {
+        const activeKey = getActiveGeminiKey(false);
+        const prompt = `You are an expert subtitle translator. Translate the following SRT file content into natural, clear Myanmar (Burmese) language.
+CRITICAL RULE:
+1. You MUST keep the timestamps, index numbers, and the blank lines EXACTLY the same.
+2. Only translate the dialogue text.
+3. Do not add any conversational remarks, introductions, explanations, or notes.
+4. Strictly output the translated SRT content only.
+
+Original SRT content:
+${srtInput}`;
+
+        const payload = { contents: [{ parts: [{ text: prompt }] }] };
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${activeKey}`;
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error?.message || 'Gemini API Error');
+        }
+
+        const data = await response.json();
+        const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        srtTranslateOutputVal = textResult;
+        document.getElementById('srtTranslateOutput').value = textResult;
+
+        document.getElementById('srtTranslateFlowWrapper').classList.remove('hidden');
+        showSuccess('SRT Subtitle ဘာသာပြန်ဆိုမှု အောင်မြင်စွာ ပြီးဆုံးပါပြီ။ 🔤');
+      } catch (err) {
+        showError(`SRT Translator Error: ${err.message}`);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    // =========================================================================
+    // 4. SPEECH-TO-TEXT TRANSCRIPT GENERATOR (Groq Whisper Large V3)
     // =========================================================================
     async function handleTranscriptGenerator() {
       hideError();
@@ -1057,7 +1216,7 @@ ${translationInput}`;
     }
 
     // =========================================================================
-    // 4. SRT Programmatic Renderer
+    // 5. SRT PROGRAMMATIC GENERATOR
     // =========================================================================
     function convertVerboseJsonToSrt(data) {
       if (!data || !data.segments || data.segments.length === 0) {
@@ -1176,6 +1335,10 @@ ${translationInput}`;
       downloadTextFile(srtOutputVal, 'joker_subtitles.srt');
     }
 
+    function downloadSrtTranslatedFile() {
+      downloadTextFile(srtTranslateOutputVal, 'joker_subtitles_burmese.srt');
+    }
+
     // Dynamic UI State Modifiers
     function showLoader(msg) {
       document.getElementById('masterLoaderMsg').innerText = msg;
@@ -1186,7 +1349,6 @@ ${translationInput}`;
       document.getElementById('masterLoader').classList.add('hidden');
     }
 
-    // Standard Alert/Log handlers (Custom Modals inside DOM)
     function showError(msg) {
       document.getElementById('errorText').innerText = msg;
       document.getElementById('errorBanner').classList.remove('hidden');
