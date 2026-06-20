@@ -369,7 +369,7 @@
                 ဘာသာပြန်မယ်
               </button>
             </div>
-            <p class="text-[10px] text-gray-500 font-bold">ရွေးချယ်ထားသော ပုံစံ (Style) ၊ လေသံ (Mode) နှင့် Gemini Model အလိုက် စာသားများကို ပြန်ဆိုပေးပါမည်။</p>
+            <p class="text-[10px] text-gray-500 font-bold">ထည့်သွင်းထားသော Key ၏ ခွင့်ပြုချက်နှင့်အညီ Auto-Detect လုပ်ပေးသော Gemini Model ဖြင့် ဘာသာပြန်ဆိုပေးပါမည်။</p>
           </div>
 
           <!-- Alert / Warning Banner for Key Restrictions -->
@@ -380,15 +380,15 @@
           <!-- Settings Grid bar for Translate -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-[#040406] p-3 rounded-xl border border-purple-900/20">
             <div>
-              <label class="block text-[9px] font-mono text-gray-400 uppercase mb-1">Gemini Model ရွေးချယ်ရန်</label>
+              <div class="flex justify-between items-center mb-1">
+                <label class="block text-[9px] font-mono text-gray-400 uppercase">Gemini Model ရွေးချယ်ရန်</label>
+                <span id="modelDetectionStatus" class="text-[9px] text-emerald-400 font-mono italic"></span>
+              </div>
               <select
                 id="translationModel"
                 class="w-full bg-[#0b0b10] border border-purple-900/40 text-[11px] text-purple-300 rounded-lg p-2 focus:outline-none"
               >
                 <option value="gemini-2.5-flash-preview-09-2025" selected>gemini-2.5-flash-preview-09-2025 (စနစ်သုံးအကြံပြုချက်)</option>
-                <option value="gemini-2.5-flash">gemini-2.5-flash (ကိုယ်ပိုင် Key သီးသန့်)</option>
-                <option value="gemini-1.5-flash">gemini-1.5-flash (ကိုယ်ပိုင် Key သီးသန့်)</option>
-                <option value="gemini-1.5-pro">gemini-1.5-pro (ကိုယ်ပိုင် Key သီးသန့်)</option>
               </select>
             </div>
 
@@ -610,39 +610,94 @@
     }
 
     // Dynamic warning and safety configurations based on Key input
-    function checkGeminiKeyStatus() {
+    async function checkGeminiKeyStatus() {
       const modelSelect = document.getElementById('translationModel');
       const warningEl = document.getElementById('modelWarningMessage');
+      const statusEl = document.getElementById('modelDetectionStatus');
       const hasCustomKey = geminiKey.trim() !== '';
 
       if (!hasCustomKey) {
         // Enforce gemini-2.5-flash-preview-09-2025 to prevent proxy crashes
-        modelSelect.value = 'gemini-2.5-flash-preview-09-2025';
-        
-        // Disable other options
-        Array.from(modelSelect.options).forEach(opt => {
-          if (opt.value !== 'gemini-2.5-flash-preview-09-2025') {
-            opt.disabled = true;
-          } else {
-            opt.disabled = false;
-          }
-        });
+        modelSelect.innerHTML = `<option value="gemini-2.5-flash-preview-09-2025" selected>gemini-2.5-flash-preview-09-2025 (စနစ်သုံးအကြံပြုချက်)</option>`;
+        statusEl.innerText = "(Free Mode)";
+        statusEl.className = "text-[9px] text-purple-400 font-mono italic";
 
         warningEl.innerHTML = "⚠️ <b>စနစ်၏ Built-in Free Key ကို သုံးနေပါသည်:</b> Developer API ကန့်သတ်ချက်ကြောင့် <b class='text-purple-400'>'gemini-2.5-flash-preview-09-2025'</b> model တစ်ခုတည်းကိုသာ ခွင့်ပြုထားပါသည်။ အခြား Model များကို သုံးလိုပါက API Settings တွင် သင်၏ကိုယ်ပိုင် Gemini Key ကို ထည့်သွင်းသိမ်းဆည်းပေးပါ။";
         warningEl.classList.remove('hidden');
       } else {
-        // Unlock all options for custom key
-        Array.from(modelSelect.options).forEach(opt => {
-          opt.disabled = false;
+        statusEl.innerText = "စစ်ဆေးနေသည်... 🔍";
+        statusEl.className = "text-[9px] text-yellow-400 font-mono italic animate-pulse";
+        
+        // Fetch dynamically from server based on Custom Key!
+        await autoDiscoverModels(sanitizeKeyString(geminiKey));
+      }
+    }
+
+    // Automatic Model Discovery using the ListModels API
+    async function autoDiscoverModels(customKey) {
+      const modelSelect = document.getElementById('translationModel');
+      const warningEl = document.getElementById('modelWarningMessage');
+      const statusEl = document.getElementById('modelDetectionStatus');
+
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models?key=${customKey}`;
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+          throw new Error("API Key မမှန်ကန်ပါ သို့မဟုတ် List API ခေါ်၍မရပါ");
+        }
+
+        const data = await response.json();
+        
+        // Filter models that support content generation (generateContent method)
+        const supportedModels = (data.models || []).filter(m => {
+          const supportsGeneration = m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent');
+          const isStandardGemini = m.name && (m.name.includes('gemini-') || m.name.includes('models/gemini'));
+          return supportsGeneration && isStandardGemini;
         });
 
-        warningEl.innerHTML = "✓ <b>ကိုယ်ပိုင် API Key ကို ထည့်သွင်းထားပါသည်:</b> drop-down မီနူးမှ မည်သည့် Gemini Model ကိုမဆို လွတ်လပ်စွာ ရွေးချယ်အသုံးပြုနိုင်ပါပြီ။";
+        if (supportedModels.length === 0) {
+          throw new Error("သင့်လျော်သော Gemini Models မတွေ့ရှိပါ");
+        }
+
+        // Re-build select options
+        modelSelect.innerHTML = "";
+        supportedModels.forEach((model, idx) => {
+          const cleanName = model.name.replace('models/', '');
+          const opt = document.createElement('option');
+          opt.value = cleanName;
+          opt.innerText = cleanName + (idx === 0 ? " (Auto-detected)" : "");
+          if (cleanName === 'gemini-2.5-flash' || cleanName === 'gemini-1.5-flash') {
+            opt.selected = true; // Select standard flash models first if present
+          }
+          modelSelect.appendChild(opt);
+        });
+
+        statusEl.innerText = `တွေ့ရှိသည် [${supportedModels.length} ခု] ✓`;
+        statusEl.className = "text-[9px] text-emerald-400 font-mono italic";
+
+        warningEl.innerHTML = `✓ <b>ကိုယ်ပိုင် API Key အတည်ပြုပြီးပါပြီ:</b> သင့် Key နှင့် ကိုက်ညီသော Models ပေါင်း <b class='text-emerald-400'>${supportedModels.length} ခု</b> ကို အောင်မြင်စွာ အလိုအလျောက် ရှာဖွေစစ်ဆေးတွေ့ရှိပြီး စာရင်းထဲသို့ ထည့်သွင်းပေးလိုက်ပါပြီ။`;
+        warningEl.classList.remove('hidden');
+
+      } catch (err) {
+        // Safe Fallback list if the API block list doesn't return properly
+        modelSelect.innerHTML = `
+          <option value="gemini-2.5-flash" selected>gemini-2.5-flash (အမြန်ဆန်ဆုံး)</option>
+          <option value="gemini-1.5-flash">gemini-1.5-flash (တည်ငြိမ်)</option>
+          <option value="gemini-1.5-pro">gemini-1.5-pro (အဆင့်မြင့်ဆုံး)</option>
+          <option value="gemini-2.5-flash-preview-09-2025">gemini-2.5-flash-preview-09-2025</option>
+        `;
+
+        statusEl.innerText = "Fallback Loaded ⚠️";
+        statusEl.className = "text-[9px] text-yellow-500 font-mono italic";
+
+        warningEl.innerHTML = "⚠️ <b>API Key စစ်ဆေးရန် ခေတ္တအဆင်မပြေပါ:</b> သို့သော် Dropdown ထဲတွင် ပုံမှန်အသုံးပြုနိုင်သည့် Models များကို Safe Fallback အဖြစ် ပြသပေးထားပါသည်။ စိတ်ကြိုက်ရွေးချယ်သုံးနိုင်ပါသည်။";
         warningEl.classList.remove('hidden');
       }
     }
 
     // Save and Reset Keys Operations
-    function saveKeys() {
+    async function saveKeys() {
       const gKeyInput = document.getElementById('inputGeminiKey').value;
       const grKeyInput = document.getElementById('inputGroqKey').value;
 
@@ -652,12 +707,12 @@
       localStorage.setItem('joker_gemini_key', geminiKey);
       localStorage.setItem('joker_groq_key', groqKey);
 
-      checkGeminiKeyStatus(); // Refresh restriction states
-      showSuccess('API Keys များကို သန့်စင်ပြီး အောင်မြင်စွာ သိမ်းဆည်းလိုက်ပါပြီ။ 🃏');
+      showSuccess('API Keys များကို သန့်စင်ပြီး အောင်မြင်စွာ သိမ်းဆည်းလိုက်ပါပြီ။ 🔍 Models များကို စစ်ဆေးနေသည်...');
       hideError();
+      await checkGeminiKeyStatus(); // Refresh restriction and auto-detection states
     }
 
-    function resetKeys() {
+    async function resetKeys() {
       geminiKey = '';
       groqKey = '';
       document.getElementById('inputGeminiKey').value = '';
@@ -666,9 +721,9 @@
       localStorage.removeItem('joker_gemini_key');
       localStorage.removeItem('joker_groq_key');
 
-      checkGeminiKeyStatus(); // Refresh restriction states
       showSuccess('API Keys များကို ရှင်းလင်းပြီးပါပြီ။ စနစ်၏ Built-in Free Key ကို သုံးနိုင်ပါသည်။');
       hideError();
+      await checkGeminiKeyStatus(); // Refresh restriction states
     }
 
     // Tab switcher
@@ -1262,6 +1317,7 @@ ${translationInput}`;
       downloadTextFile(translationOutputVal, 'joker_myanmar_translation.txt');
     }
 
+    // Download helpers
     function downloadTranscriptFile() {
       downloadTextFile(transcriptOutputVal, 'joker_transcript.txt');
     }
