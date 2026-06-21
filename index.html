@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="my" class="dark">
 <head>
@@ -81,7 +82,7 @@
         </div>
 
         <p class="text-[10px] text-gray-400 leading-relaxed">
-          * <b class="text-purple-400 font-bold">သီဟ</b>၊ <b class="text-purple-400 font-bold">နီလာ</b> နှင့် အင်္ဂလိပ်/ထိုင်း အသံများကို Key လုံးဝထည့်စရာမလိုဘဲ အမြဲတမ်း အခမဲ့ စမ်းသပ်နိုင်ပါသည်။ ကိုယ်ပိုင် Gemini Key ရှိပါကလည်း ထည့်သွင်းအသုံးပြုနိုင်ပါသည်။
+          * <b class="text-purple-400 font-bold">သီဟ</b> နှင့် <b class="text-purple-400 font-bold">နီလာ</b> မြန်မာအသံများကို Key လုံးဝထည့်စရာမလိုဘဲ အမြဲတမ်း အခမဲ့ စမ်းသပ်နိုင်ပါသည်။ Gemini Premium Voices နှင့် Translator သုံးရန်အတွက်သာ ကိုယ်ပိုင် Gemini Key လိုအပ်ပါသည်။
         </p>
 
         <div class="space-y-3">
@@ -90,7 +91,7 @@
             <input
               id="inputGeminiKey"
               type="password"
-              placeholder="စနစ်၏ Built-in Free Key ကို သုံးရန် ကွက်လပ်ထားပါ"
+              placeholder="သီဟ/နီလာ သုံးရန် ကွက်လပ်ထားပါ"
               class="w-full bg-[#040406] border border-purple-900/40 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 font-mono"
             />
           </div>
@@ -137,8 +138,8 @@
             <div class="flex items-center space-x-2.5">
               <span class="text-lg">🔊</span>
               <div>
-                <span class="text-xs font-extrabold block">1. Speech Maker (TTS)</span>
-                <span class="text-[9px] text-gray-500">မြန်မာ နှင့် အခြားသော Free အသံများ</span>
+                <span class="text-xs font-extrabold block">1. Hybrid Speech Maker (TTS)</span>
+                <span class="text-[9px] text-gray-500">မြန်မာ (သီဟ/နီလာ) နှင့် Gemini Premium Voices</span>
               </div>
             </div>
             <span id="dot-tts" class="text-purple-400">●</span>
@@ -264,7 +265,7 @@
         <div id="tool-container-tts" class="space-y-4 flex-1 flex flex-col justify-between">
           <div class="space-y-1 border-b border-purple-900/20 pb-3">
             <div class="flex justify-between items-center">
-              <h3 class="text-sm font-bold text-purple-400 font-mono">1. Speech Maker (Microsoft Edge TTS Premium)</h3>
+              <h3 class="text-sm font-bold text-purple-400 font-mono">1. Speech Maker (Hybrid TTS Engine)</h3>
               <button
                 onclick="handleTTSGenerator()"
                 class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-5 py-2 rounded-lg transition-all shadow-md"
@@ -272,7 +273,7 @@
                 🔊 အသံထုတ်မယ်
               </button>
             </div>
-            <p class="text-[10px] text-gray-500 font-bold">အနိမ့်အမြင့် (Pitch) နှင့် အမြန်နှုန်း (Speed) များကို Telegram Bot ကဲ့သို့ ရာခိုင်နှုန်းအလိုက် စိတ်ကြိုက် ပြုပြင်ထုတ်လုပ်နိုင်ပါပြီ။</p>
+            <p class="text-[10px] text-gray-500 font-bold">သီဟ နှင့် နီလာ (မြန်မာအသံ) များကို Key မလိုဘဲ အခမဲ့တိုက်ရိုက်သုံးနိုင်ပြီး Gemini Cloud Voices များကို Gemini API ဖြင့် တိုက်ရိုက်ထုတ်ယူနိုင်ပါသည်။</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-12 gap-5 flex-1 py-2">
@@ -280,7 +281,7 @@
               <label class="text-[9px] font-mono text-gray-500 uppercase tracking-wider block mb-1">Text content to speak (အသံထွက်ရန် စာသား)</label>
               <textarea
                 id="ttsInput"
-                placeholder="အသံထုတ်လုပ်လိုသော စာသားများကို ဤနေရာတွင် ရိုက်ထည့်ပါ (အကန့်အသတ်မရှိ စာသားအရှည်ကြီးများ ထည့်နိုင်ပါသည်)..."
+                placeholder="အသံထုတ်လုပ်လိုသော စာသားများကို ဤနေရာတွင် ရိုက်ထည့်ပါ..."
                 class="w-full flex-1 bg-[#040406] border border-purple-950/40 rounded-xl p-3 text-xs text-gray-200 min-h-[180px] focus:outline-none focus:border-purple-500 resize-none custom-scrollbar"
               ></textarea>
             </div>
@@ -304,7 +305,7 @@
               <!-- Speed selection (-50% to +100%) -->
               <div>
                 <div class="flex justify-between text-[9px] font-mono text-gray-400 uppercase mb-1">
-                  <span>Speed (အမြန်နှုန်း)</span>
+                  <span>Speed (အမြန်နှုန်း - သီဟ/နီလာ အတွက်သာ)</span>
                   <span id="ttsSpeedLabel" class="text-purple-400 font-bold">0%</span>
                 </div>
                 <input
@@ -322,7 +323,7 @@
               <!-- Pitch selection (-50Hz to +50Hz) -->
               <div>
                 <div class="flex justify-between text-[9px] font-mono text-gray-400 uppercase mb-1">
-                  <span>Pitch (အနိမ့်အမြင့်)</span>
+                  <span>Pitch (အနိမ့်အမြင့် - သီဟ/နီလာ အတွက်သာ)</span>
                   <span id="ttsPitchLabel" class="text-purple-400 font-bold">0Hz</span>
                 </div>
                 <input
@@ -343,16 +344,16 @@
           <div id="ttsOutputWrapper" class="p-4 bg-emerald-950/20 border border-emerald-900/40 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4 mt-2 hidden">
             <div class="flex items-center space-x-2">
               <span class="text-lg">🎉</span>
-              <span class="text-xs text-emerald-400 font-bold">မြန်မာအသံဖိုင် ထုတ်လုပ်မှု အောင်မြင်ပါသည်!</span>
+              <span class="text-xs text-emerald-400 font-bold">အသံဖိုင် ထုတ်လုပ်မှု အောင်မြင်ပါသည်!</span>
             </div>
             <audio id="ttsAudioPlayer" src="" controls class="w-full md:max-w-xs h-7 accent-emerald-500"></audio>
             <a
               id="ttsDownloadLink"
               href="#"
-              download="myanmar_voice.mp3"
+              download="voice_output.wav"
               class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-lg whitespace-nowrap transition-all shadow-md"
             >
-              📥 Download MP3
+              📥 Download Audio
             </a>
           </div>
         </div>
@@ -388,7 +389,7 @@
                 id="translationModel"
                 class="w-full bg-[#0b0b10] border border-purple-900/40 text-[11px] text-purple-300 rounded-lg p-2 focus:outline-none"
               >
-                <option value="gemini-2.5-flash-preview-09-2025" selected>gemini-2.5-flash-preview-09-2025 (စနစ်သုံးအကြံပြုချက်)</option>
+                <option value="gemini-2.5-flash-preview-09-2025" selected>gemini-2.5-flash-preview-09-2025</option>
               </select>
             </div>
 
@@ -537,7 +538,7 @@
 
         <!-- FOOTER -->
         <div class="text-center text-[10px] text-gray-600 border-t border-purple-950/40 pt-4 mt-6">
-          Joker Media Engine is powered by Microsoft Edge TTS & Groq Whisper Large V3
+          Joker Media Engine is powered by Premium Hybrid Cloud TTS & Groq Whisper Large V3
         </div>
 
       </div>
@@ -548,7 +549,7 @@
 
   <!-- BUSINESS LOGIC JAVASCRIPT -->
   <script>
-    // Platform runtime API key definition (Internal base key)
+    // Platform runtime API key definition
     const apiKey = "";
 
     // App state configuration
@@ -565,15 +566,20 @@
     let translationOutputVal = '';
     let srtOutputVal = '';
 
-    // ရနိုင်သမျှ Free Edge-TTS အသံများ စာရင်း (Exactly matched with user's bot)
-    const VOICE_LIST = {
-      "nilar": {"id": "my-MM-NilarNeural", "name": "🎙️ မနီလာ (မြန်မာ)", "desc": "မြန်မာအမျိုးသမီးသံ - သဘာဝကျပြီး ယဉ်ကျေးပျော့ပျောင်းသောလေသံ"},
-      "thiha": {"id": "my-MM-ThihaNeural", "name": "🎙️ မောင်သီဟ (မြန်မာ)", "desc": "မြန်မာအမျိုးသားသံ - တည်ငြိမ်ပြီး စကားပြောပြတ်သားသောလေသံ"},
-      "ava": {"id": "en-US-AvaNeural", "name": "🇺🇸 Ms. Ava (US)", "desc": "အမေရိကန်အမျိုးသမီးသံ - သွက်လက်ချက်ချာသော လေသံ"},
-      "andrew": {"id": "en-US-AndrewNeural", "name": "🇺🇸 Mr. Andrew (US)", "desc": "အမေရိကန်အမျိုးသားသံ - ပရော်ဖက်ရှင်နယ်ကျသော လေသံ"},
-      "emma": {"id": "en-GB-SoniaNeural", "name": "🇬🇧 Ms. Sonia (UK)", "desc": "ဗြိတိန်အမျိုးသမီးသံ - ယဉ်ကျေးပြတ်သားသော အင်္ဂလိပ်လေယူလေသိမ်း"},
-      "brian": {"id": "en-GB-RyanNeural", "name": "🇬🇧 Mr. Ryan (UK)", "desc": "ဗြိတိန်အမျိုးသားသံ - နက်ရှိုင်းပြီး အသံဩဇာရှိသော လေသံ"},
-      "prem": {"id": "th-TH-PremwadeeNeural", "name": "🇹🇭 မပရမ်ဝတီ (Thai)", "desc": "ထိုင်းအမျိုးသမီးသံ - သဘာဝကျသော ထိုင်းဘာသာစကားလေသံ"}
+    // Hybrid TTS Engine Voices list (Includes Edge Free Myanmar Voices and Gemini Premium Voices)
+    const ALL_VOICES = {
+      // 1. Edge-TTS Free voices (NO API key required)
+      "nilar": {"engine": "edge", "id": "my-MM-NilarNeural", "name": "🇲🇲 မနီလာ (မြန်မာ - Key မလိုပါ)", "desc": "မြန်မာအမျိုးသမီးသံ - အနိမ့်အမြင့်နှင့် အမြန်နှုန်း ပြင်ဆင်နိုင်ပြီး အလွန်သဘာဝကျသော လေသံ"},
+      "thiha": {"engine": "edge", "id": "my-MM-ThihaNeural", "name": "🇲🇲 မောင်သီဟ (မြန်မာ - Key မလိုပါ)", "desc": "မြန်မာအမျိုးသားသံ - တည်ငြိမ်ပြီး စကားပြောပြတ်သားသောလေသံ"},
+      "ava": {"engine": "edge", "id": "en-US-AvaNeural", "name": "🇺🇸 Ms. Ava (US - Key မလိုပါ)", "desc": "အမေရိကန်အမျိုးသမီးသံ - သွက်လက်ချက်ချာသော လေသံ"},
+      "andrew": {"engine": "edge", "id": "en-US-AndrewNeural", "name": "🇺🇸 Mr. Andrew (US - Key မလိုပါ)", "desc": "အမေရိကန်အမျိုးသားသံ - ပရော်ဖက်ရှင်နယ်ကျသော လေသံ"},
+      
+      // 2. Gemini Premium voices (Requires Gemini API Key)
+      "Kore": {"engine": "gemini", "id": "Kore", "name": "💎 Kore (Gemini Premium)", "desc": "Gemini Cloud: နူးညံ့ညင်သာပြီး ဟန်ချက်ညီသော အသံနေအထား"},
+      "Zephyr": {"engine": "gemini", "id": "Zephyr", "name": "💎 Zephyr (Gemini Premium)", "desc": "Gemini Cloud: ကြည်လင်ပြတ်သားပြီး နွေးထွေးဖော်ရွေသော အသံနေအထား"},
+      "Puck": {"engine": "gemini", "id": "Puck", "name": "💎 Puck (Gemini Premium)", "desc": "Gemini Cloud: ရွှင်ပျော်တက်ကြွပြီး မြူးတူးသော အသံနေအထား"},
+      "Fenrir": {"engine": "gemini", "id": "Fenrir", "name": "💎 Fenrir (Gemini Premium)", "desc": "Gemini Cloud: နက်ရှိုင်းပြီး အသံဩဇာပြည့်ဝသော လေသံ"},
+      "Charon": {"engine": "gemini", "id": "Charon", "name": "💎 Charon (Gemini Premium)", "desc": "Gemini Cloud: တည်ငြိမ်အေးဆေးပြီး ပုံပြောကောင်းသော လေသံ"}
     };
 
     // Initialization
@@ -581,12 +587,12 @@
       document.getElementById('inputGeminiKey').value = geminiKey;
       document.getElementById('inputGroqKey').value = groqKey;
 
-      // Populate voice options
+      // Populate hybrid voice options
       const voiceSelect = document.getElementById('ttsVoiceSelect');
-      Object.keys(VOICE_LIST).forEach(key => {
+      Object.keys(ALL_VOICES).forEach(key => {
         const option = document.createElement('option');
         option.value = key;
-        option.innerText = VOICE_LIST[key].name;
+        option.innerText = ALL_VOICES[key].name;
         voiceSelect.appendChild(option);
       });
       
@@ -608,12 +614,11 @@
       const hasCustomKey = geminiKey.trim() !== '';
 
       if (!hasCustomKey) {
-        // Enforce gemini-2.5-flash-preview-09-2025 to prevent proxy crashes
         modelSelect.innerHTML = `<option value="gemini-2.5-flash-preview-09-2025" selected>gemini-2.5-flash-preview-09-2025 (စနစ်သုံးအကြံပြုချက်)</option>`;
-        statusEl.innerText = "(Free Mode)";
+        statusEl.innerText = "(သီဟ/နီလာကို Key မလိုဘဲ သုံးနိုင်သည်)";
         statusEl.className = "text-[9px] text-purple-400 font-mono italic";
 
-        warningEl.innerHTML = "⚠️ <b>စနစ်၏ Built-in Free Key ကို သုံးနေပါသည်:</b> API ကန့်သတ်ချက်ကြောင့် <b class='text-purple-400'>'gemini-2.5-flash-preview-09-2025'</b> model တစ်ခုတည်းကိုသာ ခွင့်ပြုထားပါသည်။ အခြား Model များကို သုံးလိုပါက API Settings တွင် သင်၏ကိုယ်ပိုင် Gemini Key ကို ထည့်သွင်းသိမ်းဆည်းပေးပါ။";
+        warningEl.innerHTML = "💡 <b>အကြံပြုချက်:</b> <b class='text-purple-400'>သီဟ</b> နှင့် <b class='text-purple-400'>နီလာ</b> အသံများကို Key လုံးဝထည့်စရာမလိုဘဲ အခမဲ့ အမြဲတမ်းသုံးနိုင်ပါသည်။ Gemini Translator သို့မဟုတ် Gemini Premium အသံများကို သုံးလိုပါက API Settings တွင် API Key ထည့်သွင်းသိမ်းဆည်းပေးပါ။";
         warningEl.classList.remove('hidden');
       } else {
         statusEl.innerText = "စစ်ဆေးနေသည်... 🔍";
@@ -640,7 +645,6 @@
 
         const data = await response.json();
         
-        // Filter models that support content generation (generateContent method)
         const supportedModels = (data.models || []).filter(m => {
           const supportsGeneration = m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent');
           const isStandardGemini = m.name && (m.name.includes('gemini-') || m.name.includes('models/gemini'));
@@ -659,7 +663,7 @@
           opt.value = cleanName;
           opt.innerText = cleanName + (idx === 0 ? " (Auto-detected)" : "");
           if (cleanName === 'gemini-2.5-flash' || cleanName === 'gemini-1.5-flash') {
-            opt.selected = true; // Select standard flash models first if present
+            opt.selected = true;
           }
           modelSelect.appendChild(opt);
         });
@@ -667,29 +671,25 @@
         statusEl.innerText = `တွေ့ရှိသည် [${supportedModels.length} ခု] ✓`;
         statusEl.className = "text-[9px] text-emerald-400 font-mono italic";
 
-        warningEl.innerHTML = `✓ <b>ကိုယ်ပိုင် API Key အတည်ပြုပြီးပါပြီ:</b> သင့် Key နှင့် ကိုက်ညီသော Models ပေါင်း <b class='text-emerald-400'>${supportedModels.length} ခု</b> ကို အောင်မြင်စွာ အလိုအလျောက် ရှာဖွေစစ်ဆေးတွေ့ရှိပြီး စာရင်းထဲသို့ ထည့်သွင်းပေးလိုက်ပါပြီ။`;
+        warningEl.innerHTML = `✓ <b>ကိုယ်ပိုင် API Key အတည်ပြုပြီးပါပြီ:</b> သင်၏ Gemini Cloud TTS နှင့် ဘာသာပြန်စနစ် အပြည့်အဝ အဆင်သင့် ဖြစ်နေပါပြီ။`;
         warningEl.classList.remove('hidden');
 
       } catch (err) {
-        // Safe Fallback list if the API block list doesn't return properly
         modelSelect.innerHTML = `
-          <option value="gemini-2.5-flash" selected>gemini-2.5-flash (အမြန်ဆန်ဆုံး)</option>
-          <option value="gemini-1.5-flash">gemini-1.5-flash (တည်ငြိမ်)</option>
-          <option value="gemini-1.5-pro">gemini-1.5-pro (အဆင့်မြင့်ဆုံး)</option>
+          <option value="gemini-2.5-flash" selected>gemini-2.5-flash</option>
           <option value="gemini-2.5-flash-preview-09-2025">gemini-2.5-flash-preview-09-2025</option>
         `;
 
         statusEl.innerText = "Fallback Loaded ⚠️";
         statusEl.className = "text-[9px] text-yellow-500 font-mono italic";
 
-        warningEl.innerHTML = "⚠️ <b>API Key စစ်ဆေးရန် ခေတ္တအဆင်မပြေပါ:</b> သို့သော် Dropdown ထဲတွင် ပုံမှန်အသုံးပြုနိုင်သည့် Models များကို Safe Fallback အဖြစ် ပြသပေးထားပါသည်။ စိတ်ကြိုက်ရွေးချယ်သုံးနိုင်ပါသည်။";
+        warningEl.innerHTML = "⚠️ <b>API Key စစ်ဆေးရန် ခေတ္တအဆင်မပြေပါ:</b> သို့သော် သင့် Key အလုပ်လုပ်ပါက Dropdown ထဲရှိ Models များကို စိတ်ကြိုက်ရွေးချယ်သုံးနိုင်ပါသည်။";
         warningEl.classList.remove('hidden');
       }
     }
 
     function getActiveGeminiKey() {
-      const trimmed = geminiKey.trim();
-      return trimmed ? sanitizeKeyString(trimmed) : apiKey;
+      return sanitizeKeyString(geminiKey);
     }
 
     // Save and Reset Keys Operations
@@ -703,9 +703,9 @@
       localStorage.setItem('joker_gemini_key', geminiKey);
       localStorage.setItem('joker_groq_key', groqKey);
 
-      showSuccess('API Keys များကို သန့်စင်ပြီး အောင်မြင်စွာ သိမ်းဆည်းလိုက်ပါပြီ။ 🔍 Models များကို စစ်ဆေးနေသည်...');
+      showSuccess('API Keys များကို အောင်မြင်စွာ သိမ်းဆည်းလိုက်ပါပြီ။');
       hideError();
-      await checkGeminiKeyStatus(); // Refresh restriction and auto-detection states
+      await checkGeminiKeyStatus();
     }
 
     async function resetKeys() {
@@ -717,9 +717,9 @@
       localStorage.removeItem('joker_gemini_key');
       localStorage.removeItem('joker_groq_key');
 
-      showSuccess('API Keys များကို ရှင်းလင်းပြီးပါပြီ။ စနစ်၏ Built-in Free Key ကို သုံးနိုင်ပါသည်။');
+      showSuccess('API Keys များကို ရှင်းလင်းပြီးပါပြီ။');
       hideError();
-      await checkGeminiKeyStatus(); // Refresh restriction states
+      await checkGeminiKeyStatus();
     }
 
     // Tab switcher
@@ -822,7 +822,6 @@
         hideSuccess();
         extractedAudio = null;
 
-        // UI rendering for the media card
         document.getElementById('mediaDetailsCard').classList.remove('hidden');
         document.getElementById('mediaFileName').innerText = `📂 ${file.name}`;
         document.getElementById('mediaFileSizeFormat').innerText = `Size: ${(file.size / 1024 / 1024).toFixed(2)} MB | Format: ${file.type.split('/')[1]?.toUpperCase() || 'UNKNOWN'}`;
@@ -851,7 +850,6 @@
       }
     }
 
-    // Dynamic label updater
     function updateTtsLabels() {
       const speed = parseInt(document.getElementById('ttsSpeed').value);
       const pitch = parseInt(document.getElementById('ttsPitch').value);
@@ -861,14 +859,61 @@
 
     function updateVoiceDescription() {
       const voiceKey = document.getElementById('ttsVoiceSelect').value;
-      const voiceObj = VOICE_LIST[voiceKey];
+      const voiceObj = ALL_VOICES[voiceKey];
       if (voiceObj) {
         document.getElementById('ttsVoiceDesc').innerText = voiceObj.desc;
       }
     }
 
+    // PCM to WAV Conversion helper for Gemini audio/L16 format
+    function convertPCMToWav(pcmBase64, sampleRate = 24000) {
+      const binaryString = window.atob(pcmBase64);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+
+      // 16-bit Mono PCM WAV Header
+      const buffer = new ArrayBuffer(44 + bytes.length);
+      const view = new DataView(buffer);
+
+      /* RIFF identifier */
+      view.setUint32(0, 0x52494646, false); // "RIFF"
+      /* file length */
+      view.setUint32(4, 36 + bytes.length, true);
+      /* RIFF type */
+      view.setUint32(8, 0x57415645, false); // "WAVE"
+      /* format chunk identifier */
+      view.setUint32(12, 0x666d7420, false); // "fmt "
+      /* format chunk length */
+      view.setUint32(16, 16, true);
+      /* sample format (raw PCM) */
+      view.setUint16(20, 1, true);
+      /* channel count */
+      view.setUint16(22, 1, true); // Mono
+      /* sample rate */
+      view.setUint32(24, sampleRate, true);
+      /* byte rate (sample rate * block align) */
+      view.setUint32(28, sampleRate * 2, true);
+      /* block align (channel count * bytes per sample) */
+      view.setUint16(32, 2, true);
+      /* bits per sample */
+      view.setUint16(34, 16, true);
+      /* data chunk identifier */
+      view.setUint32(36, 0x64617461, false); // "data"
+      /* data chunk length */
+      view.setUint32(40, bytes.length, true);
+
+      // Write PCM audio data
+      const outputBytes = new Uint8Array(buffer, 44);
+      outputBytes.set(bytes);
+
+      return new Blob([buffer], { type: 'audio/wav' });
+    }
+
     // =========================================================================
-    // HIGH-PERFORMANCE MICROSOFT EDGE TTS SYSTEM (No API Key Required, 100% Free)
+    // HYBRID SPEECH GENERATOR ENGINE (Edge Free Voices + Gemini Cloud Voices)
     // =========================================================================
     async function handleTTSGenerator() {
       hideError();
@@ -881,47 +926,129 @@
         return;
       }
 
-      showLoader('အဆင်မြင့် အမြန်ဆုံး Edge TTS စနစ်ဖြင့် မြန်မာအသံဖိုင်ကို တည်ဆောက်နေပါသည်...');
+      const voiceKey = document.getElementById('ttsVoiceSelect').value;
+      const voiceConfig = ALL_VOICES[voiceKey];
 
-      const ttsVoiceKey = document.getElementById('ttsVoiceSelect').value;
-      const voiceId = VOICE_LIST[ttsVoiceKey].id;
-      
-      const speedValue = parseInt(document.getElementById('ttsSpeed').value);
-      const pitchValue = parseInt(document.getElementById('ttsPitch').value);
-
-      // Convert Speed relative value to percentage format (e.g. +10% or -15%)
-      const rateStr = (speedValue >= 0 ? "+" : "") + speedValue + "%";
-      const pitchStr = (pitchValue >= 0 ? "+" : "") + pitchValue + "Hz";
-
-      try {
-        // Construct edge endpoint
-        const endpoint = `https://edge-tts.vercel.app/api/tts?voice=${voiceId}&rate=${encodeURIComponent(rateStr)}&pitch=${encodeURIComponent(pitchStr)}&text=${encodeURIComponent(rawInput)}`;
+      if (voiceConfig.engine === 'edge') {
+        // --- 1. EDGE CLOUD TTS SYSTEM (No Key Required - Thiha, Nilar etc.) ---
+        showLoader(`အမြန်ဆုံး Edge Cloud TTS စနစ်ဖြင့် မြန်မာအသံဖိုင် (${voiceConfig.name}) ကို တည်ဆောက်နေပါသည်...`);
         
-        const response = await fetch(endpoint);
-        if (!response.ok) {
-          throw new Error("Edge TTS Server အဝေးလှမ်းခေါ်မှု ယာယီအဆင်မပြေပါ။ ဖုန်း/စက်တွင်း (Local Engine) ဖြင့် အစားထိုးဖတ်ကြားပေးပါမည်။");
+        const speedValue = parseInt(document.getElementById('ttsSpeed').value);
+        const pitchValue = parseInt(document.getElementById('ttsPitch').value);
+        const rateStr = (speedValue >= 0 ? "+" : "") + speedValue + "%";
+        const pitchStr = (pitchValue >= 0 ? "+" : "") + pitchValue + "Hz";
+
+        try {
+          // Use a very stable public edge tts serverless proxy
+          const endpoint = `https://edge-tts-api.vercel.app/api/tts?voice=${voiceConfig.id}&rate=${encodeURIComponent(rateStr)}&pitch=${encodeURIComponent(pitchStr)}&text=${encodeURIComponent(rawInput)}`;
+          
+          const response = await fetch(endpoint);
+          if (!response.ok) {
+            throw new Error("Edge TTS Server ချိတ်ဆက်မှု ယာယီအဆင်မပြေပါ။ Local System သို့ပြောင်းလဲစမ်းသပ်ပါမည်။");
+          }
+
+          const audioBlob = await response.blob();
+          playAudioBlob(audioBlob, voiceKey, 'wav');
+        } catch (err) {
+          showError(`TTS Error: ${err.message}`);
+          handleLocalFallbackTTS(rawInput, voiceKey, speedValue);
+        } finally {
+          hideLoader();
         }
 
-        const audioBlob = await response.blob();
-        const finalAudioUrl = URL.createObjectURL(audioBlob);
+      } else {
+        // --- 2. GEMINI CLOUD TTS SYSTEM (Requires Gemini API Key - Kore, Zephyr etc.) ---
+        const activeKey = getActiveGeminiKey();
+        if (!activeKey) {
+          showError('ကျေးဇူးပြု၍ Sidebar ရှိ API Settings တွင် သင်၏ Gemini API Key ကို အရင်ဆုံး ရိုက်ထည့်ပြီး Save ပေးပါ! (သီဟ နှင့် နီလာ အသံများကိုတော့ Key မလိုဘဲ အခမဲ့ သုံးနိုင်ပါသည်)');
+          return;
+        }
 
-        // Render Output
-        const player = document.getElementById('ttsAudioPlayer');
-        player.src = finalAudioUrl;
-        
-        const dlLink = document.getElementById('ttsDownloadLink');
-        dlLink.href = finalAudioUrl;
-        dlLink.download = `${ttsVoiceKey}_voice_output.mp3`;
+        showLoader(`Gemini Cloud TTS စနစ်ဖြင့် Premium အသံဖိုင် (${voiceConfig.name}) ကို တည်ဆောက်နေပါသည်...`);
 
-        document.getElementById('ttsOutputWrapper').classList.remove('hidden');
-        showSuccess(`အသံဖိုင် (${VOICE_LIST[ttsVoiceKey].name}) ကို အောင်မြင်စွာ တိုက်ရိုက်ထုတ်လုပ်ပြီးပါပြီ။ 🔊`);
-      } catch (err) {
-        showError(`TTS Error: ${err.message}`);
-        // Fallback to Web Speech Synthesis instantly
-        handleLocalFallbackTTS(rawInput, ttsVoiceKey, speedValue);
-      } finally {
-        hideLoader();
+        // Natural conversational instructions embedded within prompt
+        const fullTextToSpeak = `Say cheerfully: ${rawInput}`;
+
+        const payload = {
+          contents: [{ parts: [{ text: fullTextToSpeak }] }],
+          generationConfig: {
+            responseModalities: ["AUDIO"],
+            speechConfig: {
+              voiceConfig: {
+                prebuiltVoiceConfig: {
+                  voiceName: voiceConfig.id
+                }
+              }
+            }
+          },
+          model: "gemini-2.5-flash-preview-tts"
+        };
+
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${activeKey}`;
+
+        try {
+          let response;
+          let delay = 1000;
+          for (let i = 0; i < 5; i++) {
+            try {
+              response = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+              });
+              if (response.ok) break;
+            } catch (e) {
+              if (i === 4) throw e;
+            }
+            await new Promise(r => setTimeout(r, delay));
+            delay *= 2;
+          }
+
+          if (!response || !response.ok) {
+            const errData = response ? await response.json().catch(() => ({})) : {};
+            throw new Error(errData.error?.message || `API ပြန်လည်ဖြေကြားချက် မအောင်မြင်ပါ။`);
+          }
+
+          const data = await response.json();
+          const inlinePart = data.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
+          if (!inlinePart || !inlinePart.inlineData?.data) {
+            throw new Error("Gemini TTS API ထံမှ အသံဒေတာ ပြန်လည်မရရှိပါ။");
+          }
+
+          const pcmBase64 = inlinePart.inlineData.data;
+          const mimeType = inlinePart.inlineData.mimeType || "audio/L16;rate=24000";
+          
+          let sampleRate = 24000;
+          const rateMatch = mimeType.match(/rate=(\d+)/);
+          if (rateMatch) {
+            sampleRate = parseInt(rateMatch[1]);
+          }
+
+          // Convert PCM-16 format to WAV Blob
+          const wavBlob = convertPCMToWav(pcmBase64, sampleRate);
+          playAudioBlob(wavBlob, voiceKey, 'wav');
+
+        } catch (err) {
+          showError(`Gemini TTS Error: ${err.message}`);
+        } finally {
+          hideLoader();
+        }
       }
+    }
+
+    function playAudioBlob(audioBlob, voiceKey, extension) {
+      const finalAudioUrl = URL.createObjectURL(audioBlob);
+
+      // Render Output inside player
+      const player = document.getElementById('ttsAudioPlayer');
+      player.src = finalAudioUrl;
+      
+      const dlLink = document.getElementById('ttsDownloadLink');
+      dlLink.href = finalAudioUrl;
+      dlLink.download = `${voiceKey}_voice_output.${extension}`;
+
+      document.getElementById('ttsOutputWrapper').classList.remove('hidden');
+      showSuccess(`အသံဖိုင် (${ALL_VOICES[voiceKey].name}) ကို အောင်မြင်စွာ တိုက်ရိုက်ထုတ်လုပ်ပြီးပါပြီ။ 🔊`);
     }
 
     // Web Speech API Fallback
@@ -930,8 +1057,6 @@
       speechSynthesis.cancel();
 
       const utterance = new SpeechSynthesisUtterance(text);
-      
-      // Map percentage to scale 0.5 to 2.0
       const localSpeed = 1.0 + (speedPercent / 100);
       utterance.rate = Math.max(0.5, Math.min(2.0, localSpeed));
 
@@ -956,7 +1081,12 @@
       hideSuccess();
 
       const translationInput = document.getElementById('translationInput').value.trim();
+      const activeKey = getActiveGeminiKey();
 
+      if (!activeKey) {
+        showError('ကျေးဇူးပြု၍ Sidebar ရှိ API Settings တွင် သင်၏ Gemini API Key ကို အရင်ဆုံး ထည့်သွင်းသိမ်းဆည်းပေးပါ!');
+        return;
+      }
       if (!translationInput) {
         showError('ကျေးဇူးပြု၍ ဘာသာပြန်ဆိုလိုသော မူရင်းစာသားများကို ရေးသားထည့်သွင်းပေးပါ!');
         return;
@@ -985,7 +1115,6 @@
       }
 
       try {
-        const activeKey = getActiveGeminiKey();
         const systemPrompt = `You are an expert English-to-Myanmar translator. Keep answers concise, and return ONLY the translated output without meta-commentary or polite introductions.`;
         
         const userPrompt = `Constraints:
@@ -1002,13 +1131,14 @@ ${translationInput}`;
 
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${activeKey}`;
         
-        // 5 Retries with Backoff
+        let response;
         let delay = 1000;
         let data;
         let responseOk = false;
+        
         for (let i = 0; i < 5; i++) {
           try {
-            const response = await fetch(url, {
+            response = await fetch(url, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(payload)
@@ -1260,3 +1390,5 @@ ${translationInput}`;
   </script>
 </body>
 </html>
+
+```
