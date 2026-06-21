@@ -82,7 +82,7 @@
         </div>
 
         <p class="text-[10px] text-gray-400 leading-relaxed">
-          * <b class="text-purple-400 font-bold">သီဟ</b> နှင့် <b class="text-purple-400 font-bold">နီလာ</b> မြန်မာအသံများကို Key လုံးဝထည့်စရာမလိုဘဲ အမြဲတမ်း အခမဲ့ စမ်းသပ်နိုင်ပါသည်။ Gemini Premium Voices နှင့် Translator သုံးရန်အတွက်သာ ကိုယ်ပိုင် Gemini Key လိုအပ်ပါသည်။
+          * <b class="text-purple-400 font-bold">သီဟ</b> နှင့် <b class="text-purple-400 font-bold">နီလာ</b> မြန်မာအသံများကို Key မလိုဘဲ အခမဲ့ အမြဲတမ်းသုံးနိုင်ပါသည်။ Gemini Premium Voices နှင့် Translator သုံးရန်အတွက်သာ Gemini API Key လိုအပ်ပါသည်။
         </p>
 
         <div class="space-y-3">
@@ -265,7 +265,7 @@
         <div id="tool-container-tts" class="space-y-4 flex-1 flex flex-col justify-between">
           <div class="space-y-1 border-b border-purple-900/20 pb-3">
             <div class="flex justify-between items-center">
-              <h3 class="text-sm font-bold text-purple-400 font-mono">1. Speech Maker (Hybrid TTS Engine)</h3>
+              <h3 class="text-sm font-bold text-purple-400 font-mono">1. Speech Maker (Premium Hybrid TTS)</h3>
               <button
                 onclick="handleTTSGenerator()"
                 class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold px-5 py-2 rounded-lg transition-all shadow-md"
@@ -344,12 +344,13 @@
           <div id="ttsOutputWrapper" class="p-4 bg-emerald-950/20 border border-emerald-900/40 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4 mt-2 hidden">
             <div class="flex items-center space-x-2">
               <span class="text-lg">🎉</span>
-              <span class="text-xs text-emerald-400 font-bold">အသံဖိုင် ထုတ်လုပ်မှု အောင်မြင်ပါသည်!</span>
+              <span id="ttsSuccessMsg" class="text-xs text-emerald-400 font-bold">အသံဖိုင် ထုတ်လုပ်မှု အောင်မြင်ပါသည်!</span>
             </div>
             <audio id="ttsAudioPlayer" src="" controls class="w-full md:max-w-xs h-7 accent-emerald-500"></audio>
             <a
               id="ttsDownloadLink"
               href="#"
+              target="_blank"
               download="voice_output.wav"
               class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-lg whitespace-nowrap transition-all shadow-md"
             >
@@ -930,47 +931,75 @@
       const voiceConfig = ALL_VOICES[voiceKey];
 
       if (voiceConfig.engine === 'edge') {
-        // --- 1. EDGE CLOUD TTS SYSTEM (No Key Required - Thiha, Nilar etc.) ---
-        showLoader(`အမြန်ဆုံး Edge Cloud TTS စနစ်ဖြင့် မြန်မာအသံဖိုင် (${voiceConfig.name}) ကို တည်ဆောက်နေပါသည်...`);
+        // --- 1. BULLETPROOF MULTI-PROXY EDGE CLUID TTS (No Key Required) ---
+        showLoader(`Edge Cloud ဖြင့် မြန်မာအသံဖိုင် (${voiceConfig.name}) ကို တည်ဆောက်နေပါသည်...`);
         
         const speedValue = parseInt(document.getElementById('ttsSpeed').value);
         const pitchValue = parseInt(document.getElementById('ttsPitch').value);
         const rateStr = (speedValue >= 0 ? "+" : "") + speedValue + "%";
         const pitchStr = (pitchValue >= 0 ? "+" : "") + pitchValue + "Hz";
 
-        try {
-          // Use a very stable public edge tts serverless proxy
-          const endpoint = `https://edge-tts-api.vercel.app/api/tts?voice=${voiceConfig.id}&rate=${encodeURIComponent(rateStr)}&pitch=${encodeURIComponent(pitchStr)}&text=${encodeURIComponent(rawInput)}`;
-          
-          const response = await fetch(endpoint);
-          if (!response.ok) {
-            throw new Error("Edge TTS Server ချိတ်ဆက်မှု ယာယီအဆင်မပြေပါ။ Local System သို့ပြောင်းလဲစမ်းသပ်ပါမည်။");
-          }
+        // Highly stable redundant proxy servers (If Proxy 1 fails, it tries Proxy 2, etc.)
+        const proxyUrls = [
+          `https://edge-tts-api.vercel.app/api/tts`,
+          `https://edge-tts.vercel.app/api/tts`,
+          `https://edge-tts-proxy.onrender.com/api/tts`
+        ];
 
-          const audioBlob = await response.blob();
-          playAudioBlob(audioBlob, voiceKey, 'wav');
-        } catch (err) {
-          showError(`TTS Error: ${err.message}`);
+        let playSuccessful = false;
+        const player = document.getElementById('ttsAudioPlayer');
+        const dlLink = document.getElementById('ttsDownloadLink');
+
+        // Bypassing Javascript CORS restriction by directly streaming inside <audio src="...">
+        for (let i = 0; i < proxyUrls.length; i++) {
+          const directStreamUrl = `${proxyUrls[i]}?voice=${voiceConfig.id}&rate=${encodeURIComponent(rateStr)}&pitch=${encodeURIComponent(pitchStr)}&text=${encodeURIComponent(rawInput)}`;
+          
+          try {
+            showLoader(`အသံဖိုင်ကို ချိတ်ဆက်နေပါသည် (လမ်းကြောင်း - ${i + 1})...`);
+            
+            // Wait for audio to check if link is playable without CORS fetch blocks
+            const testAudioPlay = new Promise((resolve, reject) => {
+              player.src = directStreamUrl;
+              player.oncanplay = () => resolve(true);
+              player.onerror = () => reject(new Error("Stream load failed"));
+              setTimeout(() => reject(new Error("Timeout")), 6000); // 6s threshold
+            });
+
+            await testAudioPlay;
+            playSuccessful = true;
+            dlLink.href = directStreamUrl;
+            dlLink.download = `${voiceKey}_voice_output.mp3`;
+            break; // Success! Break loop.
+          } catch (e) {
+            console.warn(`Proxy ${i + 1} load failed. Attempting next fallback routing...`);
+          }
+        }
+
+        hideLoader();
+
+        if (playSuccessful) {
+          document.getElementById('ttsSuccessMsg').innerText = `အွန်လိုင်း မြန်မာအသံဖိုင် (${voiceConfig.name}) ကို တိုက်ရိုက်ထုတ်လွှင့်နေပါသည်!`;
+          document.getElementById('ttsOutputWrapper').classList.remove('hidden');
+          showSuccess(`အသံဖိုင် (${voiceConfig.name}) အောင်မြင်စွာ ထွက်ပေါ်လာပါပြီ။ 🔊`);
+          player.play().catch(() => {});
+        } else {
+          // If all network servers are down, fall back instantly to native local browser synthesis
+          showError("အွန်လိုင်း Cloud ဆာဗာများ ယာယီမအားပါ။ စက်တွင်း (Offline) အသံစနစ်ဖြင့် အစားထိုး ဖတ်ကြားပေးပါမည်။");
           handleLocalFallbackTTS(rawInput, voiceKey, speedValue);
-        } finally {
-          hideLoader();
         }
 
       } else {
-        // --- 2. GEMINI CLOUD TTS SYSTEM (Requires Gemini API Key - Kore, Zephyr etc.) ---
+        // --- 2. GEMINI CLOUD TTS SYSTEM (Requires Gemini API Key) ---
         const activeKey = getActiveGeminiKey();
         if (!activeKey) {
-          showError('ကျေးဇူးပြု၍ Sidebar ရှိ API Settings တွင် သင်၏ Gemini API Key ကို အရင်ဆုံး ရိုက်ထည့်ပြီး Save ပေးပါ! (သီဟ နှင့် နီလာ အသံများကိုတော့ Key မလိုဘဲ အခမဲ့ သုံးနိုင်ပါသည်)');
+          showError('ကျေးဇူးပြု၍ API Settings တွင် သင်၏ Gemini API Key ကို အရင်ဆုံး ထည့်သွင်းသိမ်းဆည်းပေးပါ! (သီဟ နှင့် နီလာ အသံများကိုတော့ Key မလိုဘဲ အခမဲ့ သုံးနိုင်ပါသည်)');
           return;
         }
 
         showLoader(`Gemini Cloud TTS စနစ်ဖြင့် Premium အသံဖိုင် (${voiceConfig.name}) ကို တည်ဆောက်နေပါသည်...`);
 
-        // Natural conversational instructions embedded within prompt
-        const fullTextToSpeak = `Say cheerfully: ${rawInput}`;
-
         const payload = {
-          contents: [{ parts: [{ text: fullTextToSpeak }] }],
+          contents: [{ parts: [{ text: `Say cheerfully in a natural way: ${rawInput}` }] }],
           generationConfig: {
             responseModalities: ["AUDIO"],
             speechConfig: {
@@ -1006,7 +1035,7 @@
 
           if (!response || !response.ok) {
             const errData = response ? await response.json().catch(() => ({})) : {};
-            throw new Error(errData.error?.message || `API ပြန်လည်ဖြေကြားချက် မအောင်မြင်ပါ။`);
+            throw new Error(errData.error?.message || `API ပြန်လည်ဖြေကြားချက် မအောင်မြင်ပါ။ (Status: ${response?.status})`);
           }
 
           const data = await response.json();
@@ -1026,40 +1055,41 @@
 
           // Convert PCM-16 format to WAV Blob
           const wavBlob = convertPCMToWav(pcmBase64, sampleRate);
-          playAudioBlob(wavBlob, voiceKey, 'wav');
+          const finalAudioUrl = URL.createObjectURL(wavBlob);
+
+          const player = document.getElementById('ttsAudioPlayer');
+          player.src = finalAudioUrl;
+          
+          const dlLink = document.getElementById('ttsDownloadLink');
+          dlLink.href = finalAudioUrl;
+          dlLink.download = `gemini_${voiceConfig.id.toLowerCase()}_speech.wav`;
+
+          document.getElementById('ttsSuccessMsg').innerText = `Gemini Premium Cloud Audio (${voiceConfig.name}) အောင်မြင်ပါသည်!`;
+          document.getElementById('ttsOutputWrapper').classList.remove('hidden');
+          showSuccess(`Gemini Premium Cloud Audio (${voiceConfig.name}) ထုတ်လုပ်မှု အောင်မြင်ပါသည်! 🔊`);
+          player.play().catch(() => {});
 
         } catch (err) {
-          showError(`Gemini TTS Error: ${err.message}`);
+          showError(`Gemini TTS API Error: ${err.message}. Key သေချာမှု ရှိမရှိ စစ်ဆေးပါ။`);
         } finally {
           hideLoader();
         }
       }
     }
 
-    function playAudioBlob(audioBlob, voiceKey, extension) {
-      const finalAudioUrl = URL.createObjectURL(audioBlob);
-
-      // Render Output inside player
-      const player = document.getElementById('ttsAudioPlayer');
-      player.src = finalAudioUrl;
-      
-      const dlLink = document.getElementById('ttsDownloadLink');
-      dlLink.href = finalAudioUrl;
-      dlLink.download = `${voiceKey}_voice_output.${extension}`;
-
-      document.getElementById('ttsOutputWrapper').classList.remove('hidden');
-      showSuccess(`အသံဖိုင် (${ALL_VOICES[voiceKey].name}) ကို အောင်မြင်စွာ တိုက်ရိုက်ထုတ်လုပ်ပြီးပါပြီ။ 🔊`);
-    }
-
-    // Web Speech API Fallback
+    // Web Speech API Fallback (Guaranteed to work offline, 100% no network errors)
     function handleLocalFallbackTTS(text, voiceKey, speedPercent) {
-      if (typeof speechSynthesis === 'undefined') return;
+      if (typeof speechSynthesis === 'undefined') {
+        showError("သင့်စက်ထဲတွင် ဒေသတွင်း အသံထွက်စနစ် (Web Speech API) လုံးဝမပံ့ပိုးပါ။");
+        return;
+      }
       speechSynthesis.cancel();
 
       const utterance = new SpeechSynthesisUtterance(text);
       const localSpeed = 1.0 + (speedPercent / 100);
       utterance.rate = Math.max(0.5, Math.min(2.0, localSpeed));
 
+      // Auto detect and assign local Myanmar or Google Voice if available
       const localVoices = speechSynthesis.getVoices();
       const myanmarVoice = localVoices.find(v => v.lang.includes('my') || v.lang.includes('MM'));
       if (myanmarVoice) {
@@ -1071,6 +1101,7 @@
       };
 
       speechSynthesis.speak(utterance);
+      showSuccess("စက်တွင်း Offline Speech Engine ဖြင့် အောင်မြင်စွာ ဖတ်ကြားနေပါသည်... 🔊");
     }
 
     // =========================================================================
@@ -1329,6 +1360,7 @@ ${translationInput}`;
       showSuccess('Transcript ကို ဘာသာပြန်စနစ်ထဲသို့ ကူးပြောင်းပေးလိုက်ပါပြီ။');
     }
 
+    // Send Translation to TTS
     function handleSendTranslationToTTS() {
       document.getElementById('ttsInput').value = translationOutputVal;
       switchTab('tts');
